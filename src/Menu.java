@@ -1,3 +1,4 @@
+// Menu.java
 import Flight.FlightManager;
 import Passenger.PassengerManager;
 
@@ -10,8 +11,8 @@ public class Menu {
     private final Scanner scanner;
 
     public Menu(PassengerManager passengerManager, FlightManager flightManager) {
-        this.flightManager = new FlightManager();
-        this.passengerManager = new PassengerManager(this.flightManager); // 传递相同的 FlightManager 实例
+        this.flightManager = flightManager; // 使用传入的实例
+        this.passengerManager = passengerManager; // 使用传入的实例
         this.scanner = new Scanner(System.in);
     }
 
@@ -57,10 +58,10 @@ public class Menu {
                         passengerManager.addPassengerAndSelectFlight();
                         break;
                     case 5:
-                        // 乘客改签
+                        passengerManager.rebookPassenger();
                         break;
                     case 6:
-                        // 乘客退票
+                        passengerManager.deletePassenger();
                         break;
                     case 7:
                         // 其他功能

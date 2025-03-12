@@ -135,23 +135,7 @@ public class FlightManager {
     }
 
     private String selectOption(String[] options, String prompt) {
-        for (int i = 0; i < options.length; i++) {
-            System.out.println((i + 1) + ". " + options[i]);
-        }
-        System.out.print(prompt);
-        int choice;
-        while (true) {
-            try {
-                choice = Integer.parseInt(scanner.nextLine()) - 1;
-                if (choice >= 0 && choice < options.length) {
-                    return options[choice];
-                } else {
-                    System.out.println("选择无效，请重新输入。");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("请输入有效的选项编号。");
-            }
-        }
+        return selectOptionWithDefault(options, prompt, null);
     }
 
     private void validateDateTimeInput(String dateTime) throws ParseException {
@@ -167,16 +151,16 @@ public class FlightManager {
             return;
         }
 
-        // 找出所有没有乘客购票的航班
+        // 找出所有可用座位数未更改的航班
         List<FlightInformation> modifiableFlights = new ArrayList<>();
         for (FlightInformation flight : flights) {
-            if (!flightHasPassenger.getOrDefault(flight.getFlightNumber(), false)) {
+            if (flight.getAvailableSeats() == flight.getInitialAvailableSeats()) {
                 modifiableFlights.add(flight);
             }
         }
 
         if (modifiableFlights.isEmpty()) {
-            System.out.println("所有航班都有乘客购票，无法修改。");
+            System.out.println("所有航班的可用座位数已更改，无法修改。");
             return;
         }
 
@@ -303,7 +287,7 @@ public class FlightManager {
         int choice;
         while (true) {
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
+            if (input.isEmpty() && defaultValue != null) {
                 return defaultValue;
             }
             try {
@@ -370,16 +354,16 @@ public class FlightManager {
             return;
         }
 
-        // 找出所有没有乘客购票的航班
+        // 找出所有可用座位数未更改的航班
         List<FlightInformation> deletableFlights = new ArrayList<>();
         for (FlightInformation flight : flights) {
-            if (!flightHasPassenger.getOrDefault(flight.getFlightNumber(), false)) {
+            if (flight.getAvailableSeats() == flight.getInitialAvailableSeats()) {
                 deletableFlights.add(flight);
             }
         }
 
         if (deletableFlights.isEmpty()) {
-            System.out.println("所有航班都有乘客购票，无法删除。");
+            System.out.println("所有航班的可用座位数已更改，无法删除。");
             return;
         }
 
@@ -425,5 +409,26 @@ public class FlightManager {
             }
         }
         return false;
+    }
+
+    // 获取所有航班
+    public List<FlightInformation> getFlights() {
+        return flights;
+    }
+
+    // 根据航班号查找航班
+    public FlightInformation findFlightByNumber(String flightNumber) {
+        for (FlightInformation flight : flights) {
+            if (flight.getFlightNumber().equals(flightNumber)) {
+                return flight;
+            }
+        }
+        return null;
+    }
+
+    public boolean hasPassenger(String flightNumber) {
+        // 实现逻辑，检查该航班是否有乘客购票
+        // 例如：
+        return flightHasPassenger.getOrDefault(flightNumber, false);
     }
 }

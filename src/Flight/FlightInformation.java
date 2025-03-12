@@ -2,7 +2,6 @@ package Flight;
 
 import java.util.*;
 
-// 航班类
 public class FlightInformation {
     private String flightNumber;
     private String departure;
@@ -10,6 +9,7 @@ public class FlightInformation {
     private String departureTime;
     private String aircraftType;
     private int availableSeats;
+    private int initialAvailableSeats;
 
     // getter和setter方法
     public String getFlightNumber() {
@@ -69,6 +69,14 @@ public class FlightInformation {
             throw new IllegalArgumentException("可用座位数不能为负数");
         }
         this.availableSeats = availableSeats;
+    }
+
+    public int getInitialAvailableSeats() {
+        return initialAvailableSeats;
+    }
+
+    public void setInitialAvailableSeats(int initialAvailableSeats) {
+        this.initialAvailableSeats = initialAvailableSeats;
     }
 
     // 定义允许的机场集合
@@ -233,6 +241,13 @@ public class FlightInformation {
         }
     }
 
+    /**
+     * 增加可用座位数
+     */
+    public void addAvailableSeats() {
+        availableSeats++;
+    }
+
     public FlightInformation(String flightNumber, String departure, String destination, String departureTime, String aircraftType, int availableSeats) {
         this.flightNumber = flightNumber;
         setDeparture(departure);
@@ -240,6 +255,7 @@ public class FlightInformation {
         this.departureTime = departureTime;
         this.aircraftType = aircraftType;
         setAvailableSeats(availableSeats);
+        this.initialAvailableSeats = availableSeats;
 
         // 计算并输出航班情况
         double flightTime = getFlightTime(departure, destination);
@@ -257,5 +273,10 @@ public class FlightInformation {
     // 新增方法：获取允许的飞机型号列表
     public static String[] getAllowedAircraftTypes() {
         return new String[]{"波音737", "波音747", "波音777", "波音787", "空客320", "空客380"};
+    }
+
+    @Override
+    public String toString() {
+        return "航班号: " + flightNumber + ", 出发地: " + departure + ", 目的地: " + destination + ", 出发时间: " + departureTime + ", 机型: " + aircraftType + ", 可用座位数: " + availableSeats;
     }
 }
