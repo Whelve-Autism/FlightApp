@@ -1,5 +1,9 @@
 package Passenger;
 
+/*
+ * 此类用于储存和访问乘客信息，包括姓名、性别、行李重量、联系电话、航班号、出发地、目的地和出发时间。
+ * This class is used to store and access passenger information, including name, gender, luggage weight, telephone number, flight number, departure, destination, and departure time.
+ */
 public class PassengerInformation {
     private String name;
     private String gender;
@@ -10,19 +14,10 @@ public class PassengerInformation {
     private String destination;
     private String departureTime;
 
-    public PassengerInformation(String name, String gender, int weightOfLuggage, String telephoneNumber) {
-        this.name = name;
-        this.gender = gender;
-        this.weightOfLuggage = weightOfLuggage;
-        this.telephoneNumber = telephoneNumber;
-        this.flightNumber = null; // 初始化为空，表示尚未购票
-        this.departure = null;
-        this.destination = null;
-        this.departureTime = null;
-    }
-
-    // Getter 和 Setter 方法
-
+    /*
+     * 封装信息。
+     * getter and setter.
+     */
     public String getName() {
         return name;
     }
@@ -87,6 +82,30 @@ public class PassengerInformation {
         this.departureTime = departureTime;
     }
 
+    /*
+     * 初始化乘客信息。
+     * Initialize passenger information.
+     */
+    public PassengerInformation(String name, String gender, int weightOfLuggage, String telephoneNumber) {
+        this.name = name;
+        this.gender = gender;
+        this.weightOfLuggage = weightOfLuggage;
+        this.telephoneNumber = telephoneNumber;
+
+        /*
+         * 初始化，航班号、出发地、目的地和出发时间都为空。
+         * Initialize, flight number, departure, destination, and departure time are all empty.
+         */
+        this.flightNumber = null;
+        this.departure = null;
+        this.destination = null;
+        this.departureTime = null;
+    }
+
+    /*
+     * 重写toString方法，用于打印乘客信息。
+     * Override the toString method to print passenger information.
+     */
     @Override
     public String toString() {
         return "PassengerInformation{" +
@@ -101,3 +120,7 @@ public class PassengerInformation {
                 '}';
     }
 }
+/*
+ * End of PassengerInformation Class.
+ * Checked by Fan Xinkang.
+ */
