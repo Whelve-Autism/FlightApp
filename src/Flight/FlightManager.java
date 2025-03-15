@@ -15,14 +15,14 @@ import java.text.SimpleDateFormat;
 public class FlightManager {
     private List<FlightInformation> flights = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    private Map<String, Boolean> flightHasPassenger = new HashMap<>(); // 记录航班是否有乘客购票
+    private Map<String, Boolean> flightHasPassenger = new HashMap<>();
 
     /*
      * 录入航班信息。
      * Input flight information.
      */
     public FlightInformation inputFlightInfo() {
-        System.out.println("请输入航班号（6位数字）：");
+        System.out.println("Please enter the flight number (6 digits): ");
         String flightNumber;
 
         /*
@@ -32,9 +32,9 @@ public class FlightManager {
         do {
             flightNumber = scanner.nextLine();
             if (!flightNumber.matches("\\d{6}")) {
-                System.out.println("航班号必须是6位数字，请重新输入：");
+                System.out.println("The flight number must be 6 digits. Please re-enter: ");
             } else if (isFlightNumberExists(flightNumber)) {
-                System.out.println("航班号 " + flightNumber + " 已经存在，请重新输入：");
+                System.out.println("Flight number " + flightNumber + " already exists. Please re-enter: ");
             }
         } while (!flightNumber.matches("\\d{6}") || isFlightNumberExists(flightNumber));
 
@@ -42,7 +42,7 @@ public class FlightManager {
          * 选择出发地。
          * Select the departure.
          */
-        String departure = selectOption(FlightInformation.getAllowedAirports(), "请选择出发地：");
+        String departure = selectOption(FlightInformation.getAllowedAirports(), "Please select the place of departure: ");
 
         /*
          * 选择目的地。
@@ -55,9 +55,9 @@ public class FlightManager {
          * Ensure that the departure and destination are not the same.
          */
         do {
-            destination = selectOption(FlightInformation.getAllowedAirports(), "请选择目的地：");
+            destination = selectOption(FlightInformation.getAllowedAirports(), "Please select the place of destination: ");
             if (departure.equals(destination)) {
-                System.out.println("起飞地和目的地不能相同，请重新选择。");
+                System.out.println("The place of departure and destination cannot be the same. Please select again: ");
             }
         } while (departure.equals(destination));
 
@@ -73,12 +73,12 @@ public class FlightManager {
          */
         while (true) {
             try {
-                System.out.println("请输入起飞时间（yyyy-MM-dd HH:mm）：");
+                System.out.println("Please enter the take-off time (yyyy-MM-dd HH:mm):");
                 departureTime = scanner.nextLine();
                 validateDateTimeInput(departureTime);
                 break;
-            } catch (ParseException e) {
-                System.out.println("时间格式不正确，请重新输入。");
+            } catch (Exception e) {
+                System.out.println("The time format is incorrect. Please re-enter: ");
             }
         }
 
@@ -95,16 +95,21 @@ public class FlightManager {
         int availableSeats;
         while (true) {
             try {
-                System.out.println("请输入可用座位数：");
+                System.out.println("Please enter the number of available seats: ");
                 availableSeats = Integer.parseInt(scanner.nextLine());
                 if (availableSeats <= 0) {
-                    throw new IllegalArgumentException("座位数必须为正整数");
+                    throw new IllegalArgumentException("The number of seats must be a positive integer.");
                 }
                 break;
+
+            /*
+             * 处理不同输入错误，抛出不同的异常。
+             * Handle different input errors and throw different exceptions.
+             */
             } catch (NumberFormatException e) {
-                System.out.println("请输入有效的座位数。");
+                System.out.println("Please enter a valid number of seats.");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + " 请重新输入。");
+                System.out.println(e.getMessage() + " . Please re-enter: ");
             }
         }
 
@@ -120,7 +125,7 @@ public class FlightManager {
          * Initialize the flight and confirm that the flight has no passengers booked.
          */
         flightHasPassenger.put(flightNumber, false);
-        System.out.println("航班添加成功。");
+        System.out.println("Flight addition is successful.");
         return flight;
     }
 
@@ -152,9 +157,9 @@ public class FlightManager {
      */
     public void printFlights(List<FlightInformation> flights) {
         if (flights.isEmpty()) {
-            System.out.println("没有找到符合条件的航班。");
+            System.out.println("No eligible flights were found.");
         } else {
-            System.out.println("找到以下符合条件的航班：");
+            System.out.println("Find the following eligible flights: ");
             for (int i = 0; i < flights.size(); i++) {
                 FlightInformation flight = flights.get(i);
 
@@ -162,14 +167,14 @@ public class FlightManager {
                  * 数组下标从0开始，所以需要加1。
                  * The array index starts from 0, so we need to add 1.
                  */
-                System.out.println((i + 1) + ". 航班号: " + flight.getFlightNumber());
-                System.out.println("   出发地: " + flight.getDeparture());
-                System.out.println("   目的地: " + flight.getDestination());
-                System.out.println("   出发时间: " + flight.getDepartureTime());
-                System.out.println("   机型: " + flight.getAircraftType());
-                System.out.println("   可选座位数: " + flight.getAvailableSeats());
-                System.out.println("   飞行时间: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "小时");
-                System.out.println("   飞行价格: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+                System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
+                System.out.println("   Departure: " + flight.getDeparture());
+                System.out.println("   Destination: " + flight.getDestination());
+                System.out.println("   Departure time: " + flight.getDepartureTime());
+                System.out.println("   Aircraft type: " + flight.getAircraftType());
+                System.out.println("   Available seats: " + flight.getAvailableSeats());
+                System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+                System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
                 System.out.println();
             }
         }
@@ -185,15 +190,15 @@ public class FlightManager {
         }
         while (true) {
             try {
-                System.out.print("请选择航班编号（输入数字）：");
+                System.out.print("Please select the flight number (enter the number): ");
                 int choice = Integer.parseInt(scanner.nextLine()) - 1;
                 if (choice >= 0 && choice < flights.size()) {
                     return flights.get(choice);
                 } else {
-                    System.out.println("选择无效，请重新输入。");
+                    System.out.println("The selection is invalid, please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("请输入有效的选项编号。");
+                System.out.println("Please enter a valid option number: ");
             }
         }
     }
@@ -222,7 +227,7 @@ public class FlightManager {
      */
     public void updateFlightInfo() {
         if (flights.isEmpty()) {
-            System.out.println("没有航班记录可以修改。");
+            System.out.println("There is no flight record to modify.");
             return;
         }
 
@@ -237,7 +242,7 @@ public class FlightManager {
             }
         }
         if (modifiableFlights.isEmpty()) {
-            System.out.println("所有航班的可用座位数已更改，无法修改。");
+            System.out.println("The number of available seats on all flights has been changed and cannot be modified.");
             return;
         }
 
@@ -245,7 +250,7 @@ public class FlightManager {
          * 打印所有可修改的航班供选择。
          * Print all modifiable flights for selection.
          */
-        System.out.println("找到以下可以修改的航班：");
+        System.out.println("Find the following flights that can be modified: ");
         for (int i = 0; i < modifiableFlights.size(); i++) {
             FlightInformation flight = modifiableFlights.get(i);
 
@@ -253,14 +258,14 @@ public class FlightManager {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". 航班号: " + flight.getFlightNumber());
-            System.out.println("   出发地: " + flight.getDeparture());
-            System.out.println("   目的地: " + flight.getDestination());
-            System.out.println("   出发时间: " + flight.getDepartureTime());
-            System.out.println("   机型: " + flight.getAircraftType());
-            System.out.println("   可选座位数: " + flight.getAvailableSeats());
-            System.out.println("   飞行时间: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "小时");
-            System.out.println("   飞行价格: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+            System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
+            System.out.println("   Departure: " + flight.getDeparture());
+            System.out.println("   Destination: " + flight.getDestination());
+            System.out.println("   Departure time: " + flight.getDepartureTime());
+            System.out.println("   Aircraft type: " + flight.getAircraftType());
+            System.out.println("   Available seats: " + flight.getAvailableSeats());
+            System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+            System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
             System.out.println();
         }
 
@@ -270,7 +275,7 @@ public class FlightManager {
          */
         FlightInformation flightToUpdate = selectFlight(modifiableFlights);
         if (flightToUpdate == null) {
-            System.out.println("选择无效，无法修改航班。");
+            System.out.println("The selection is invalid, and the flight cannot be modified.");
             return;
         }
 
@@ -278,26 +283,26 @@ public class FlightManager {
          * 打印当前航班信息。
          * Print current flight information.
          */
-        System.out.println("当前航班信息如下：");
-        System.out.println("航班号: " + flightToUpdate.getFlightNumber());
-        System.out.println("出发地: " + flightToUpdate.getDeparture());
-        System.out.println("目的地: " + flightToUpdate.getDestination());
-        System.out.println("起飞时间: " + flightToUpdate.getDepartureTime());
-        System.out.println("机型: " + flightToUpdate.getAircraftType());
-        System.out.println("可用座位数: " + flightToUpdate.getAvailableSeats());
+        System.out.println("The current flight information is as follows: ");
+        System.out.println("Flight number: " + flightToUpdate.getFlightNumber());
+        System.out.println("Departure: " + flightToUpdate.getDeparture());
+        System.out.println("Destination: " + flightToUpdate.getDestination());
+        System.out.println("Departure time: " + flightToUpdate.getDepartureTime());
+        System.out.println("Aircraft type: " + flightToUpdate.getAircraftType());
+        System.out.println("Available seats: " + flightToUpdate.getAvailableSeats());
 
         /*
          * 录入新的航班信息。
          * Enter new flight information.
          */
-        System.out.println("请输入新的航班信息（如果不想修改某项，请直接按回车键保留原信息）：");
+        System.out.println("Please enter the new flight information (if you don't want to modify a certain item, please press the Enter key directly to keep the original information): ");
 
         /*
          * 修改航班号。
          * Modify flight number.
          */
         String newFlightNumber = flightToUpdate.getFlightNumber();
-        System.out.println("请输入新的航班号（6位数字），当前航班号为 " + newFlightNumber + "：");
+        System.out.println("Please enter the new flight number (6 digits). The current flight number is " + newFlightNumber + ": ");
 
         /*
          * 如果输入了航班号，则检查是否为6位数字，并且判断是否已经存在。
@@ -305,14 +310,19 @@ public class FlightManager {
          */
         String inputFlightNumber = scanner.nextLine().trim();
         if (!inputFlightNumber.isEmpty()) {
+
+            /*
+             * 使用正则表达式，判断是否为6位数字。
+             * Check if the input flight number is 6 digits and if it exists.
+             */
             if (inputFlightNumber.matches("\\d{6}")) {
                 if (isFlightNumberExists(inputFlightNumber) && !inputFlightNumber.equals(flightToUpdate.getFlightNumber())) {
-                    System.out.println("航班号 " + inputFlightNumber + " 已经存在，修改未生效。");
+                    System.out.println("The flight number " + inputFlightNumber + " already exists. Please re-input: ");
                     return;
                 }
                 newFlightNumber = inputFlightNumber;
             } else {
-                System.out.println("航班号必须是6位数字，修改未生效。");
+                System.out.println("The flight number must be 6 digits, and the modification has not taken effect.");
                 return;
             }
         }
@@ -321,7 +331,7 @@ public class FlightManager {
          * 修改出发地。
          * Modify departure.
          */
-        String newDeparture = selectOptionWithDefault(FlightInformation.getAllowedAirports(), "请选择新的出发地，当前出发地为 " + flightToUpdate.getDeparture() + "：", flightToUpdate.getDeparture());
+        String newDeparture = selectOptionWithDefault(FlightInformation.getAllowedAirports(), "Please select a new place of departure. The current place of departure is " + flightToUpdate.getDeparture() + ": ", flightToUpdate.getDeparture());
 
         /*
          * 修改目的地。
@@ -329,9 +339,9 @@ public class FlightManager {
          */
         String newDestination;
         do {
-            newDestination = selectOptionWithDefault(FlightInformation.getAllowedAirports(), "请选择新的目的地，当前目的地为 " + flightToUpdate.getDestination() + "：", flightToUpdate.getDestination());
+            newDestination = selectOptionWithDefault(FlightInformation.getAllowedAirports(), "Please select a new destination. The current destination is " + flightToUpdate.getDestination() + ": ", flightToUpdate.getDestination());
             if (newDeparture.equals(newDestination)) {
-                System.out.println("起飞地和目的地不能相同，请重新选择。");
+                System.out.println("The place of departure and destination cannot be the same. Please select again: ");
             }
         } while (newDeparture.equals(newDestination));
 
@@ -349,10 +359,10 @@ public class FlightManager {
          * Modify aircraft type.
          */
         String newAircraftType = flightToUpdate.getAircraftType();
-        System.out.println("请选择新的飞机型号，当前机型为 " + newAircraftType + "：");
-        String inputAircraftType = selectOptionWithDefault(FlightInformation.getAllowedAircraftTypes(), "请选择新的飞机型号，当前机型为 " + newAircraftType + "：", newAircraftType);
+        System.out.println("Please select a new aircraft model. The current model is " + newAircraftType + ": ");
+        String inputAircraftType = selectOptionWithDefault(FlightInformation.getAllowedAircraftTypes(), "Please select a new aircraft model. The current model is " + newAircraftType + ": ", newAircraftType);
         if (inputAircraftType.equals(newAircraftType)) {
-            System.out.println("飞机型号未修改。");
+            System.out.println("The aircraft model has not been modified. ");
         } else {
             newAircraftType = inputAircraftType;
         }
@@ -376,7 +386,7 @@ public class FlightManager {
                 newDepartureTime.equals(flightToUpdate.getDepartureTime()) &&
                 newAircraftType.equals(flightToUpdate.getAircraftType()) &&
                 newAvailableSeats == flightToUpdate.getAvailableSeats()) {
-            System.out.println("没有进行任何修改。");
+            System.out.println("No modification has been made. ");
             return;
         }
 
@@ -399,7 +409,7 @@ public class FlightManager {
             flightHasPassenger.remove(flightToUpdate.getFlightNumber());
             flightHasPassenger.put(newFlightNumber, false);
         }
-        System.out.println("航班信息修改成功。");
+        System.out.println("The flight information has been modified successfully.");
         printFlights(List.of(flightToUpdate));
     }
 
@@ -428,10 +438,10 @@ public class FlightManager {
                 if (choice >= 0 && choice < options.length) {
                     return options[choice];
                 } else {
-                    System.out.println("选择无效，请重新输入。");
+                    System.out.println("The selection is invalid. Please re-enter: ");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("请输入有效的选项编号。");
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option number: ");
             }
         }
     }
@@ -443,15 +453,15 @@ public class FlightManager {
     private boolean modifyDateTime(String currentDateTime) {
         while (true) {
             try {
-                System.out.println("请输入新的起飞时间（yyyy-MM-dd HH:mm），当前起飞时间为 " + currentDateTime + "：");
+                System.out.println("Please enter the new take-off time (yyyy-MM-dd HH:mm), the current take-off time is " + currentDateTime + ": ");
                 String newDateTime = scanner.nextLine().trim();
                 if (newDateTime.isEmpty()) {
                     return true;
                 }
                 validateDateTimeInput(newDateTime);
                 return true;
-            } catch (ParseException e) {
-                System.out.println("时间格式不正确，请重新输入。");
+            } catch (Exception e) {
+                System.out.println("The time format is incorrect. Please re-enter: ");
             }
         }
     }
@@ -463,20 +473,25 @@ public class FlightManager {
     private boolean modifyAvailableSeats(int currentSeats) {
         while (true) {
             try {
-                System.out.println("请输入新的可用座位数，当前座位数为 " + currentSeats + "：");
+                System.out.println("Please enter the new number of available seats. The current number of seats is " + currentSeats + ":");
                 String input = scanner.nextLine().trim();
                 if (input.isEmpty()) {
                     return true;
                 }
                 int newSeats = Integer.parseInt(input);
                 if (newSeats <= 0) {
-                    throw new IllegalArgumentException("座位数必须为正整数");
+                    throw new IllegalArgumentException("The number of seats must be a positive integer.");
                 }
                 return true;
+
+            /*
+             * 处理不同输入错误，抛出不同的异常。
+             * Handle different input errors and throw different exceptions.
+             */
             } catch (NumberFormatException e) {
-                System.out.println("请输入有效的座位数。");
+                System.out.println("Please enter a valid number of seats: ");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + " 请重新输入。");
+                System.out.println(e.getMessage() + "Please re-enter: ");
             }
         }
     }
@@ -495,7 +510,7 @@ public class FlightManager {
      */
     public void deleteFlight() {
         if (flights.isEmpty()) {
-            System.out.println("没有航班记录可以删除。");
+            System.out.println("There is no flight record that can be deleted.");
             return;
         }
 
@@ -510,7 +525,7 @@ public class FlightManager {
             }
         }
         if (deletableFlights.isEmpty()) {
-            System.out.println("所有航班的可用座位数已更改，无法删除。");
+            System.out.println("The number of available seats on all flights has been changed and cannot be deleted.");
             return;
         }
 
@@ -518,17 +533,22 @@ public class FlightManager {
          * 打印所有可删除的航班供选择。
          * Print all deletable flights for selection.
          */
-        System.out.println("找到以下可以删除的航班：");
+        System.out.println("Find the following flights that can be deleted: ");
         for (int i = 0; i < deletableFlights.size(); i++) {
             FlightInformation flight = deletableFlights.get(i);
-            System.out.println((i + 1) + ". 航班号: " + flight.getFlightNumber());
-            System.out.println("   出发地: " + flight.getDeparture());
-            System.out.println("   目的地: " + flight.getDestination());
-            System.out.println("   出发时间: " + flight.getDepartureTime());
-            System.out.println("   机型: " + flight.getAircraftType());
-            System.out.println("   可选座位数: " + flight.getAvailableSeats());
-            System.out.println("   飞行时间: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "小时");
-            System.out.println("   飞行价格: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+
+            /*
+             * 数组下标从0开始，所以需要加1。
+             * The array index starts from 0, so we need to add 1.
+             */
+            System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
+            System.out.println("   Departure: " + flight.getDeparture());
+            System.out.println("   Destination: " + flight.getDestination());
+            System.out.println("   Departure time: " + flight.getDepartureTime());
+            System.out.println("   Aircraft type: " + flight.getAircraftType());
+            System.out.println("   Available seats: " + flight.getAvailableSeats());
+            System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+            System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
             System.out.println();
         }
 
@@ -538,7 +558,7 @@ public class FlightManager {
          */
         FlightInformation flightToDelete = selectFlight(deletableFlights);
         if (flightToDelete == null) {
-            System.out.println("选择无效，无法删除航班。");
+            System.out.println("The selection is invalid, and the flight cannot be deleted.");
             return;
         }
 
@@ -546,14 +566,14 @@ public class FlightManager {
          * 确认删除。
          * Confirm deletion.
          */
-        System.out.print("是否确认删除航班 " + flightToDelete.getFlightNumber() + "? (是/否): ");
+        System.out.print("Whether to confirm the deletion of the flight " + flightToDelete.getFlightNumber() + "? (Yes / No): ");
         String choice = scanner.nextLine();
-        if (choice.equalsIgnoreCase("是")) {
+        if (choice.equalsIgnoreCase("Yes")) {
             flights.remove(flightToDelete);
             flightHasPassenger.remove(flightToDelete.getFlightNumber());
-            System.out.println("航班 " + flightToDelete.getFlightNumber() + " 已删除。");
+            System.out.println("Flight " + flightToDelete.getFlightNumber() + " has been deleted.");
         } else {
-            System.out.println("删除已取消。");
+            System.out.println("The deletion has been canceled.");
         }
     }
 

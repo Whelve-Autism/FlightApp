@@ -1,0 +1,35 @@
+这份文件用于此 App 的说明：
+首先，感谢您使用我们组设计的 Team Project —— FlightApp，接下来是对此的使用说明：
+目录是一份菜单，包含选项1-9，共9个功能: 1、新建航班记录：2、修改航班记录；3、删除航班记录；4、乘客购票功能；5、乘客改签功能；6、乘客退票功能；7、查询天气功能；8、获得旅游建议；9、将表格发送至邮箱。
+1、新建航班记录：依次输入航班号、出发地、目的地、起飞时间、飞机型号、可用座位数，我们会对您输入的数据格式进行验证，确保您输入的数据是真实有效的。
+2、修改航班记录：选择修改的航班序号，重新输入航班相关信息，见选项1，如果不想修改可以按回车键跳过的同时保留原数据。
+3、删除航班记录：选择删除的航班序号，输入后则会直接删除该序号的航班记录，且此操作不能撤销。
+4、乘客购票功能：选择出发地和目的地，选择后则会直接输出符合您的需求的航班，输入航班序号后则会询问是否要购票，如购票，则输入乘客的姓名、性别、行李重量、联系方式，系统会输出您的购票信息。
+5、乘客改签功能：选择一位已经购票的乘客，选择一个满足条件的航班进行改签，如不想改签可以直接按回车键跳过的同时保留原数据。
+6、乘客删除功能：选择一位已经购票的乘客，输入后则会直接删除该序号的乘客购票记录，且此操作不能撤销。
+7、查询天气功能：选择一个城市，系统会输出该城市今天、明天、后天三天的天气信息。
+8、获得旅游建议：选择一个城市，系统会输出该城市的四个著名景区。
+9、将表格发送至邮箱：稍等几秒钟，系统将会把所有录入的航班信息和乘客信息渲染成图表，一起发送到对应的邮箱（您可以设置成您的邮箱）。
+注意：航班上如果存在乘客，则不能进行修改或者删除操作；只有剩余座位数大于0时，航班上才能添加乘客。
+此外：如果您有任何的建议，如果您愿意的话，可以联系我们，我们会第一时间进行修改和完善。
+参考资料：《Java从入门到精通》、github、优课达官网。
+最后，再次感谢您使用我们的 FlightApp 程序，祝您工作顺利、生活愉快！
+创作者：樊心康、徐诗怡、陆思羽。
+
+This file is used for the instructions of this App:
+First of all, thank you for using the Team Project - FlightApp designed by our team. Next is the instructions for using it:
+The catalog is a menu, including options 1-9, with a total of 9 functions: 1. New flight records: 2. Modify flight records; 3. Delete flight records; 4. Passenger ticket purchase function; 5. Passenger ticket change function; 6. Passenger ticket refund function; 7. Weather inquiry function; 8. Get travel advice; 9. Send the form to the mailbox.
+1. New flight records: Enter the flight number, place of departure, destination, take-off time, aircraft model and number of available seats in order. We will verify the data format you enter to ensure that the data you enter is true and valid.
+2. Modify the flight record: Select the modified flight serial number and re-enter the flight-related information. See option 1. If you don't want to modify it, you can press Enter to skip it while keeping the original data.
+3. Delete flight record: Select the flight serial number to be deleted. After entering, the flight record of the serial number will be deleted directly, and this operation cannot be undoked.
+4. Passenger ticket purchase function: Select the place of departure and destination. After selecting, the flight that meets your needs will be directly output. After entering the flight serial number, you will be asked whether to buy a ticket. If you buy a ticket, enter the passenger's name, gender, baggage weight and contact information, and the system will output your ticket purchase information.
+5. Passenger ticket change function: Select a passenger who has already purchased a ticket and select a flight that meets the conditions to change the ticket. If you don't want to change the ticket, you can directly press the Enter key to skip and keep the original data.
+6. Passenger deletion function: Select a passenger who has already purchased a ticket. After entering, the passenger ticket purchase record of the serial number will be directly deleted, and this operation cannot be undone.
+7. Weather query function: Select a city, and the system will output the weather information of the city for three days today, tomorrow and the day after tomorrow.
+8. Get travel advice: Choose a city, and the system will output four famous scenic spots in the city.
+9. Send the form to the mailbox: Wait a few seconds, and the system will render all the entered flight information and passenger information into a chart and send it to the corresponding mailbox together (you can set it as your mailbox).
+Note: If there are passengers on the flight, it cannot be modified or deleted; only when the remaining seats are greater than 0, passengers can be added on the flight.
+In addition, if you have any suggestions, you can contact us, and we will modify and improve it as soon as possible.
+Reference materials: "Java from Introduction to Proficiency", github, Youkeda official website.
+Finally, thank you again for using our FlightApp program. We wish you a smooth work and a happy life!
+Creators: Fan Xinkang, Xu Shiyi, Lu Siyu.

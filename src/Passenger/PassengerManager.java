@@ -30,7 +30,7 @@ public class PassengerManager {
      * Enter passenger information.
      */
     public PassengerInformation inputPassengerInfo() {
-        System.out.println("请输入乘客姓名:");
+        System.out.println("Please enter the passenger's name: ");
         String name = scanner.nextLine();
         String gender = getValidGender(scanner);
         int weightOfLuggage = getValidWeight(scanner);
@@ -45,12 +45,12 @@ public class PassengerManager {
      */
     private String getValidGender(Scanner scanner) {
         while (true) {
-            System.out.println("请输入乘客性别（男/女）:");
+            System.out.println("Please enter the passenger's gender (Male / Female): ");
             String gender = scanner.nextLine();
-            if (gender.equals("男") || gender.equals("女")) {
+            if (gender.equals("Male") || gender.equals("Female")) {
                 return gender;
             } else {
-                System.out.println("性别格式不正确，请重新输入：");
+                System.out.println("The gender format is incorrect, please re-enter: ");
             }
         }
     }
@@ -62,7 +62,7 @@ public class PassengerManager {
     private int getValidWeight(Scanner scanner) {
         while (true) {
             try {
-                System.out.println("请输入乘客行李重量（kg）:");
+                System.out.println("Please enter the passenger's baggage weight (kg): ");
                 int weightOfLuggage = scanner.nextInt();
 
                 /*
@@ -73,10 +73,10 @@ public class PassengerManager {
                 if (weightOfLuggage >= 0 && weightOfLuggage <= 100) {
                     return weightOfLuggage;
                 } else {
-                    System.out.println("行李重量超出范围，请重新输入：");
+                    System.out.println("The weight of the luggage is out of range, please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("输入无效，请输入一个有效的数字：");
+                System.out.println("The input is invalid. Please enter a valid number: ");
 
                 /*
                  * 虚拟读取，以清除扫描仪类中的缓冲区-错误。
@@ -93,12 +93,12 @@ public class PassengerManager {
      */
     private String getValidPhoneNumber(Scanner scanner) {
         while (true) {
-            System.out.println("请输入乘客联系方式（11位电话号码）:");
+            System.out.println("Please enter the passenger's contact information (11-digit phone number): ");
             String telephoneNumber = scanner.nextLine();
             if (telephoneNumber.matches("\\d{11}")) {
                 return telephoneNumber;
             } else {
-                System.out.println("手机号码格式不正确，请重新输入：");
+                System.out.println("The format of the mobile phone number is incorrect. Please re-enter: ");
             }
         }
     }
@@ -108,23 +108,23 @@ public class PassengerManager {
      * Add passenger and select flight.
      */
     public void addPassengerAndSelectFlight() {
-        System.out.println("注意：一旦航班上有乘客，航班则不能修改。");
+        System.out.println("Note: Once there are passengers on the flight, the flight cannot be modified.");
 
         /*
          * 选择出发地和目的地。
          * Select departure and destination.
          */
-        String departure = selectOption(FlightInformation.getAllowedAirports(), "请选择出发地：");
-        String destination = selectOption(FlightInformation.getAllowedAirports(), "请选择目的地：");
+        String departure = selectOption(FlightInformation.getAllowedAirports(), "Please select the departure: ");
+        String destination = selectOption(FlightInformation.getAllowedAirports(), "Please select the destination: ");
 
         /*
          * 确保出发地和目的地不能相同。
          * Ensure that the departure and destination are not the same.
          */
         while (departure.equals(destination)) {
-            System.out.println("起飞地和目的地不能相同，请重新选择。");
-            departure = selectOption(FlightInformation.getAllowedAirports(), "请选择出发地：");
-            destination = selectOption(FlightInformation.getAllowedAirports(), "请选择目的地：");
+            System.out.println("The place of departure and destination cannot be the same. Please select again: ");
+            departure = selectOption(FlightInformation.getAllowedAirports(), "Please select the departure: ");
+            destination = selectOption(FlightInformation.getAllowedAirports(), "Please select the destination: ");
         }
 
         /*
@@ -139,17 +139,17 @@ public class PassengerManager {
          * If there are no matching flights, prompt and end the program.
          */
         if (matchingFlights.isEmpty()) {
-            System.out.println("没有找到符合条件的航班，请下次再见。");
+            System.out.println("No eligible flights have been found. See you next time. ");
         } else {
             FlightInformation selectedFlight = flightManager.selectFlight(matchingFlights);
             if (selectedFlight != null) {
-                System.out.println("您选择了航班：" + selectedFlight.getFlightNumber());
+                System.out.println("You have chosen the flight: " + selectedFlight.getFlightNumber());
                 if (selectedFlight.getAvailableSeats() == 0) {
-                    System.out.println("该航班没有可用座位，无法购票。");
+                    System.out.println("There are no seats available for this flight, so tickets cannot be purchased.");
                 } else {
-                    System.out.print("是否要购买该航班的票？(是/否): ");
+                    System.out.print("Do you want to buy a ticket for this flight? (Yes / No): ");
                     String choice = scanner.nextLine();
-                    if (choice.equalsIgnoreCase("是")) {
+                    if (choice.equalsIgnoreCase("Yes")) {
 
                         /*
                          * 录入乘客信息。
@@ -189,7 +189,7 @@ public class PassengerManager {
                         int luggageWeight = passenger.getWeightOfLuggage();
                         double additionalLuggageFee = 0.0;
                         if (luggageWeight > 20) {
-                            System.out.println("您的行李超过20kg，需要托运行李，收费100元，每超1kg加15元。");
+                            System.out.println("If your luggage exceeds 20kg, you need to check in your luggage. The charge is 100 yuan, and 15 yuan will be added for each excess of 1kg.");
                             additionalLuggageFee = 100.0 + (luggageWeight - 20) * 15.0;
                         }
                         double totalCost = basePrice + additionalLuggageFee;
@@ -198,24 +198,24 @@ public class PassengerManager {
                          * 输出购票成功的消息，并显示乘客的信息和航班号。
                          * Output booking success message and show passenger information and flight number.
                          */
-                        System.out.println("您已购买航班：" + selectedFlight.getFlightNumber());
-                        System.out.println("乘客信息如下：");
-                        System.out.println("姓名: " + passenger.getName());
-                        System.out.println("性别: " + passenger.getGender());
-                        System.out.println("行李重量: " + luggageWeight + "kg");
-                        System.out.println("联系方式: " + passenger.getTelephoneNumber());
-                        System.out.println("航班号: " + passenger.getFlightNumber());
-                        System.out.println("票价: " + basePrice + "元");
+                        System.out.println("You have purchased the flight.：" + selectedFlight.getFlightNumber());
+                        System.out.println("The passenger information is as follows: ");
+                        System.out.println("Name: " + passenger.getName());
+                        System.out.println("Gender: " + passenger.getGender());
+                        System.out.println("Weight of luggage: " + luggageWeight + "kg");
+                        System.out.println("Telephone number: " + passenger.getTelephoneNumber());
+                        System.out.println("Flight number: " + passenger.getFlightNumber());
+                        System.out.println("Flight price: " + basePrice + "yuan");
                         if (additionalLuggageFee > 0) {
-                            System.out.println("额外行李费用: " + additionalLuggageFee + "元");
+                            System.out.println("Extra baggage charges: " + additionalLuggageFee + "yuan");
                         }
-                        System.out.println("总费用: " + totalCost + "元");
+                        System.out.println("Total cost: " + totalCost + "yuan");
                     } else {
-                        System.out.println("购票已取消。");
+                        System.out.println("The ticket purchase has been canceled.");
                     }
                 }
             } else {
-                System.out.println("没有选择任何航班。");
+                System.out.println("No flight was selected.");
             }
         }
     }
@@ -242,14 +242,19 @@ public class PassengerManager {
          */
         while (true) {
             try {
+
+                /*
+                 * 获取用户输入，并转换为整数。
+                 * Get user input and convert to integer.
+                 */
                 choice = Integer.parseInt(scanner.nextLine()) - 1;
                 if (choice >= 0 && choice < options.length) {
                     return options[choice];
                 } else {
-                    System.out.println("选择无效，请重新输入。");
+                    System.out.println("The selection is invalid. Please re-enter: ");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("请输入有效的选项编号。");
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option number: ");
             }
         }
     }
@@ -269,11 +274,11 @@ public class PassengerManager {
     public void printPassengers() {
         for (int i = 0; i < passengers.size(); i++) {
             PassengerInformation passenger = passengers.get(i);
-            System.out.println((i + 1) + ". 乘客: " + passenger.getName());
-            System.out.println("   性别: " + passenger.getGender());
-            System.out.println("   行李重量: " + passenger.getWeightOfLuggage() + "kg");
-            System.out.println("   联系方式: " + passenger.getTelephoneNumber());
-            System.out.println("   航班号: " + passenger.getFlightNumber());
+            System.out.println((i + 1) + ". Passengers: " + passenger.getName());
+            System.out.println("   Gender: " + passenger.getGender());
+            System.out.println("   Weight of luggage: " + passenger.getWeightOfLuggage() + "kg");
+            System.out.println("   Telephone number: " + passenger.getTelephoneNumber());
+            System.out.println("   Flight number: " + passenger.getFlightNumber());
             System.out.println();
         }
     }
@@ -284,7 +289,7 @@ public class PassengerManager {
      */
     public void rebookPassenger() {
         if (passengers.isEmpty()) {
-            System.out.println("没有乘客信息，无法改签。");
+            System.out.println("There is no passenger information, so the visa cannot be changed.");
             return;
         }
 
@@ -298,10 +303,10 @@ public class PassengerManager {
          * 选择要改签的乘客。
          * Select passenger to rebook.
          */
-        System.out.print("请输入要改签的乘客编号（输入数字），按回车跳过: ");
+        System.out.print("Please enter the passenger number to be changed (enter numbers) or press Enter to skip: ");
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("未选择乘客，改签操作已取消。");
+            System.out.println("Passengers have not been selected, and the visa change operation has been canceled.");
             return;
         }
 
@@ -313,11 +318,11 @@ public class PassengerManager {
         try {
             passengerIndex = Integer.parseInt(input) - 1;
             if (passengerIndex < 0 || passengerIndex >= passengers.size()) {
-                System.out.println("选择无效，请重新输入。");
+                System.out.println("The selection is invalid. Please re-enter: ");
                 return;
             }
-        } catch (NumberFormatException e) {
-            System.out.println("输入无效，请输入有效的选项编号。");
+        } catch (Exception e) {
+            System.out.println("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -326,7 +331,7 @@ public class PassengerManager {
          * Get the selected passenger.
          */
         PassengerInformation passenger = passengers.get(passengerIndex);
-        System.out.println("您选择了乘客: " + passenger.getName());
+        System.out.println("You have chosen the passenger: " + passenger.getName() + ".");
 
         /*
          * 获取当前航班。
@@ -334,7 +339,7 @@ public class PassengerManager {
          */
         FlightInformation currentFlight = flightManager.findFlightByNumber(passenger.getFlightNumber());
         if (currentFlight == null) {
-            System.out.println("当前航班信息不存在，改签操作已取消。");
+            System.out.println("The current flight information does not exist, and the visa change operation has been canceled.");
             return;
         }
 
@@ -349,10 +354,10 @@ public class PassengerManager {
          * 选择新的航班。
          * Select new flight.
          */
-        System.out.print("请输入新的航班编号（输入数字），按回车跳过: ");
+        System.out.print("Please enter the new flight number (enter numbers) or press Enter to skip: ");
         input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("未选择新航班，改签操作已取消。");
+            System.out.println("No new flight was selected, and the visa change operation has been canceled.");
             return;
         }
 
@@ -364,11 +369,11 @@ public class PassengerManager {
         try {
             flightIndex = Integer.parseInt(input) - 1;
             if (flightIndex < 0 || flightIndex >= allFlights.size()) {
-                System.out.println("选择无效，请重新输入。");
+                System.out.println("The selection is invalid. Please re-enter: ");
                 return;
             }
-        } catch (NumberFormatException e) {
-            System.out.println("输入无效，请输入有效的选项编号。");
+        } catch (Exception e) {
+            System.out.println("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -383,11 +388,11 @@ public class PassengerManager {
          * Check if the new flight is the same as the current flight.
          */
         if (newFlight.getFlightNumber().equals(currentFlight.getFlightNumber())) {
-            System.out.println("新航班与当前航班相同，改签操作已取消。");
+            System.out.println("The new flight is the same as the current flight, and the visa change operation has been canceled.");
             return;
         }
         if (newFlight.getAvailableSeats() == 0) {
-            System.out.println("该航班没有可用座位，无法改签。");
+            System.out.println("There are no seats available for this flight and cannot be changed.");
             return;
         }
 
@@ -397,7 +402,12 @@ public class PassengerManager {
          */
         currentFlight.addAvailableSeats();
         if (!flightManager.hasPassenger(currentFlight.getFlightNumber())) {
-            flightManager.setFlightHasPassenger(currentFlight.getFlightNumber(), false); // 当前航班没有乘客购票
+
+            /*
+             * 如果当前航班没有乘客，则更新 flightHasPassenger。
+             * If the current flight has no passengers, update flightHasPassenger.
+             */
+            flightManager.setFlightHasPassenger(currentFlight.getFlightNumber(), false);
         }
 
         /*
@@ -405,15 +415,19 @@ public class PassengerManager {
          * Update the available seats of the new flight.
          */
         newFlight.reduceAvailableSeats();
-        flightManager.setFlightHasPassenger(newFlight.getFlightNumber(), true); // 新航班有乘客购票
+
+        /*
+         * 如果当前航班有乘客，则更新 flightHasPassenger。
+         * If the current flight has passengers, update flightHasPassenger.
+         */
+        flightManager.setFlightHasPassenger(newFlight.getFlightNumber(), true);
 
         /*
          * 更新乘客的航班号。
          * Update the flight number of the passenger.
          */
         passenger.setFlightNumber(newFlight.getFlightNumber());
-
-        System.out.println("改签成功，新的航班号为：" + newFlight.getFlightNumber());
+        System.out.println("The visa change is successful, and the new flight number is: " + newFlight.getFlightNumber() + ".");
     }
 
     /*
@@ -422,7 +436,7 @@ public class PassengerManager {
      */
     public void deletePassenger() {
         if (passengers.isEmpty()) {
-            System.out.println("没有乘客信息，无法删除。");
+            System.out.println("There is no passenger information and cannot be deleted.");
             return;
         }
 
@@ -436,10 +450,10 @@ public class PassengerManager {
          * 选择要删除的乘客。
          * Select passenger to delete.
          */
-        System.out.print("请输入要删除的乘客编号（输入数字），按回车跳过: ");
+        System.out.print("Please enter the passenger number you want to delete (enter the number) or press Enter to skip: ");
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("未选择乘客，删除操作已取消。");
+            System.out.println("Passengers were not selected, and the deletion operation was canceled.");
             return;
         }
 
@@ -451,11 +465,11 @@ public class PassengerManager {
         try {
             passengerIndex = Integer.parseInt(input) - 1;
             if (passengerIndex < 0 || passengerIndex >= passengers.size()) {
-                System.out.println("选择无效，请重新输入。");
+                System.out.println("The selection is invalid. Please re-enter: ");
                 return;
             }
-        } catch (NumberFormatException e) {
-            System.out.println("输入无效，请输入有效的选项编号。");
+        } catch (Exception e) {
+            System.out.println("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -464,7 +478,7 @@ public class PassengerManager {
          * Get the selected passenger.
          */
         PassengerInformation passenger = passengers.get(passengerIndex);
-        System.out.println("您选择了乘客: " + passenger.getName());
+        System.out.println("You have chosen the passenger: " + passenger.getName() + ".");
 
         /*
          * 获取当前航班。
@@ -472,7 +486,7 @@ public class PassengerManager {
          */
         FlightInformation currentFlight = flightManager.findFlightByNumber(passenger.getFlightNumber());
         if (currentFlight == null) {
-            System.out.println("当前航班信息不存在，删除操作已取消。");
+            System.out.println("The current flight information does not exist, and the deletion operation has been canceled.");
             return;
         }
 
@@ -480,9 +494,9 @@ public class PassengerManager {
          * 确认删除。
          * Confirm deletion.
          */
-        System.out.print("是否确认删除乘客 " + passenger.getName() + "? (是/否): ");
+        System.out.print("Do you want to confirm the deletion of passenger " + passenger.getName() + "? (Yes / No): ");
         String choice = scanner.nextLine();
-        if (choice.equalsIgnoreCase("是")) {
+        if (choice.equalsIgnoreCase("Yes")) {
             passengers.remove(passenger);
 
             /*
@@ -491,11 +505,16 @@ public class PassengerManager {
              */
             currentFlight.addAvailableSeats();
             if (!flightManager.hasPassenger(currentFlight.getFlightNumber())) {
-                flightManager.setFlightHasPassenger(currentFlight.getFlightNumber(), false); // 当前航班没有乘客购票
+
+                /*
+                 * 设置没有乘客购票。
+                 * Set flightHasPassenger to false.
+                 */
+                flightManager.setFlightHasPassenger(currentFlight.getFlightNumber(), false);
             }
-            System.out.println("乘客 " + passenger.getName() + " 的购票信息已删除。");
+            System.out.println("Passenger " + passenger.getName() + "'s ticket purchase information has been deleted.");
         } else {
-            System.out.println("删除已取消。");
+            System.out.println("The deletion operation has been canceled.");
         }
     }
 }

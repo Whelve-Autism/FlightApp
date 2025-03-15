@@ -17,14 +17,14 @@ public class Travel {
      */
     public Travel() {
         scenicSpots = new HashMap<>();
-        scenicSpots.put("北京", "故宫博物馆, 八达岭长城, 天安门广场, 颐和园");
-        scenicSpots.put("上海", "外滩, 上海迪士尼乐园，上海野生动物园, 东方明珠");
-        scenicSpots.put("广州", "沙面大街, 白云山, 白鹅潭, 珠江夜游");
-        scenicSpots.put("南京", "中山陵, 秦淮河, 明孝陵, 夫子庙");
-        scenicSpots.put("深圳", "莲花山公园, 深圳湾公园, 深圳欢乐谷, 深圳世界之窗");
-        scenicSpots.put("成都", "都江堰, 青城山, 锦里古街, 春熙路");
-        scenicSpots.put("武汉", "黄鹤楼, 东湖绿道, 湖北省博物馆, 楚河汉街");
-        scenicSpots.put("无锡", "太湖, 蠡园, 灵山大佛, 三国城");
+        scenicSpots.put("Beijing", "Forbidden City Museum, Badaling Great Wall, Tiananmen Square, Summer Palace");
+        scenicSpots.put("Shanghai", "The Bund, Shanghai Disneyland, Shanghai Wildlife Park, Oriental Pearl Tower");
+        scenicSpots.put("Guangzhou", "Shamian Street, Baiyun Mountain, White Goose Pool, Pearl River Night Cruise");
+        scenicSpots.put("Nanjing", "Dr. Sun Yat-sen's Mausoleum, Qinhuai River, Ming Xiaoling Mausoleum, Confucius Temple");
+        scenicSpots.put("Shenzhen", "Lianhua Mountain Park, Shenzhen Bay Park, Happy Valley, Window of the World");
+        scenicSpots.put("Chengdu", "Dujiangyan Irrigation System, Mount Qingcheng, Jinli Ancient Street, Chunxi Road");
+        scenicSpots.put("Wuhan", "Yellow Crane Tower, East Lake Greenway, Hubei Provincial Museum, Chu River Han Street");
+        scenicSpots.put("Wuxi", "Taihu Lake, Li Garden, Lingshan Grand Buddha, Three Kingdoms City");
     }
 
     /*
@@ -32,7 +32,7 @@ public class Travel {
       Show city list.
      */
     public void displayCities() {
-        System.out.println("请选择一个城市:");
+        System.out.println("Please select a city: ");
         int index = 1;
         for (String city : scenicSpots.keySet()) {
             System.out.println(index + ". " + city);
@@ -47,9 +47,9 @@ public class Travel {
     public void displayScenicSpots(String city) {
         String scenicSpots = this.scenicSpots.get(city);
         if (scenicSpots != null) {
-            System.out.println(city + "的推荐景区: " + scenicSpots);
+            System.out.println(city + "'s recommended scenic spots: " + scenicSpots);
         } else {
-            System.out.println("未找到该城市的推荐景区信息。");
+            System.out.println("No recommended scenic spot information of the city was found.");
         }
     }
 
@@ -60,7 +60,7 @@ public class Travel {
     public void travelAdvice() {
         Scanner scanner = new Scanner(System.in);
         displayCities();
-        System.out.print("输入城市序号: ");
+        System.out.print("Enter the city serial number: ");
         int selectedIndex = scanner.nextInt();
 
         /*
@@ -77,7 +77,7 @@ public class Travel {
             String selectedCity = (String) scenicSpots.keySet().toArray()[selectedIndex - 1];
             displayScenicSpots(selectedCity);
         } else {
-            System.out.println("无效的序号，请输入有效的城市序号。");
+            System.out.println("Invalid serial number. Please enter a valid city serial number.");
         }
     }
 }

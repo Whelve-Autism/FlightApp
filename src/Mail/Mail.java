@@ -23,8 +23,8 @@ public class Mail {
      * Render the content of the email.
      */
     public static void sendEmail(List<FlightInformation> flights, List<PassengerInformation> passengers) {
-        StringBuilder emailBody = new StringBuilder("<html><body><h2>航班信息</h2><table border='1'>");
-        emailBody.append("<tr><th>航班号</th><th>出发地</th><th>目的地</th><th>起飞时间</th><th>机型</th><th>可用座位数</th></tr>");
+        StringBuilder emailBody = new StringBuilder("<html><body><h2>Flight Information</h2><table border='1'>");
+        emailBody.append("<tr><th>Flight number</th><th>Departure</th><th>Destination</th><th>Departure time</th><th>Aircraft type</th><th>Available seats</th></tr>");
 
         /*
          * 遍历航班信息，渲染表格。
@@ -40,8 +40,8 @@ public class Mail {
                     .append("<td>").append(flight.getAvailableSeats()).append("</td>")
                     .append("</tr>");
         }
-        emailBody.append("</table><h2>乘客信息</h2><table border='1'>");
-        emailBody.append("<tr><th>姓名</th><th>性别</th><th>行李重量</th><th>联系方式</th><th>航班号</th></tr>");
+        emailBody.append("</table><h2>Passenger Information</h2><table border='1'>");
+        emailBody.append("<tr><th>Name</th><th>Gender</th><th>Weight of luggage</th><th>Telephone number</th><th>Flight number</th></tr>");
 
         /*
          * 渲染乘客信息。
@@ -129,12 +129,14 @@ public class Mail {
              * Set the recipient's email address.
              */
             message.setRecipients(Message.RecipientType.TO, "2303085802@qq.com");
+            message.setRecipients(Message.RecipientType.TO, "844272977@qq.com");
+            message.setRecipients(Message.RecipientType.TO, "1524442305@qq.com");
 
             /*
              * 设置邮件的主题。
              * Set the subject of the email.
              */
-            message.setSubject("航班和乘客信息");
+            message.setSubject("Flight and passenger information.");
 
             /*
              * 文本部分。

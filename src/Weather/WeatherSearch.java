@@ -17,6 +17,10 @@ public class WeatherSearch {
     private OkHttpClient okHttpClient;
     private Scanner scanner;
 
+    /*
+     * 构造函数，初始化 okHttpClient 实例。
+     * Constructor, initialize the okHttpClient instance.
+     */
     public WeatherSearch(Scanner scanner) {
 
         /*
@@ -60,7 +64,7 @@ public class WeatherSearch {
             if (response.isSuccessful() && response.body() != null) {
                 return response.body().string();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Request " + url + " error.");
             e.printStackTrace();
         }
@@ -72,9 +76,14 @@ public class WeatherSearch {
      * Get weather information based on the selected city.
      */
     public void fetchWeatherForCities() {
-        List<String> cities = Arrays.asList("北京", "上海", "广州", "南京", "深圳", "成都", "武汉", "无锡");
-        System.out.println("请选择一个城市查询天气信息：");
+        List<String> cities = Arrays.asList("Beijing", "Shanghai", "Guangzhou", "Nanjing", "Shenzhen", "Chengdu", "Wuhan", "Wuxi");
+        System.out.println("Please select a city to check the weather information: ");
         for (int i = 0; i < cities.size(); i++) {
+
+            /*
+             * 数组下标从0开始，所以需要加1。
+             * The array index starts from 0, so we need to add 1.
+             */
             System.out.println((i + 1) + ". " + cities.get(i));
         }
         int choice = scanner.nextInt();
@@ -116,26 +125,26 @@ public class WeatherSearch {
                      * 输出天气信息。
                      * Output weather information.
                      */
-                    System.out.println("城市: " + location.getName());
+                    System.out.println("City: " + location.getName());
                     for (WeatherDaily daily : dailyList) {
-                        System.out.println("日期: " + daily.getDate());
-                        System.out.println("白天天气: " + daily.getTextDay());
-                        System.out.println("夜间天气: " + daily.getTextNight());
-                        System.out.println("最高温度: " + daily.getHigh() + "°C");
-                        System.out.println("最低温度: " + daily.getLow() + "°C");
-                        System.out.println("风向: " + daily.getWindDirection());
-                        System.out.println("风速: " + daily.getWindSpeed() + " km/h");
-                        System.out.println("湿度: " + daily.getHumidity() + "%");
+                        System.out.println("Date: " + daily.getDate());
+                        System.out.println("Daytime weather: " + daily.getTextDay());
+                        System.out.println("Night weather: " + daily.getTextNight());
+                        System.out.println("The highest temperature: " + daily.getHigh() + "°C");
+                        System.out.println("The lowest temperature: " + daily.getLow() + "°C");
+                        System.out.println("Wind direction: " + daily.getWindDirection());
+                        System.out.println("Wind speed: " + daily.getWindSpeed() + " km/h");
+                        System.out.println("Moisture content: " + daily.getHumidity() + "%");
                         System.out.println();
                     }
                 } else {
-                    System.out.println("未找到 " + city + " 的天气信息。");
+                    System.out.println("No weather information for " + city + " was found.");
                 }
             } else {
-                System.out.println("无法获取 " + city + " 的天气信息。");
+                System.out.println("Unable to get the weather information of Nanjing " + city + ".");
             }
         } else {
-            System.out.println("无效的选择，请重新选择。");
+            System.out.println("Invalid selection. Please select again: ");
         }
     }
 }

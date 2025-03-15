@@ -31,11 +31,15 @@ public class FlightInformation {
         return departure;
     }
 
+    /*
+     * 设置出发机场，并验证其是否在允许的机场列表中。
+     * Set the departure airport and validate whether it is in the allowed airport list.
+     */
     public void setDeparture(String departure) {
         if (isValidAirport(departure)) {
             this.departure = departure;
         } else {
-            throw new IllegalArgumentException("Invalid departure airport: " + departure);
+            throw new IllegalArgumentException("Invalid departure airport: " + departure + ".");
         }
     }
 
@@ -43,11 +47,15 @@ public class FlightInformation {
         return destination;
     }
 
+    /*
+     * 设置到达机场，并验证其是否在允许的机场列表中。
+     * Set the destination airport and validate whether it is in the allowed airport list.
+     */
     public void setDestination(String destination) {
         if (isValidAirport(destination)) {
             this.destination = destination;
         } else {
-            throw new IllegalArgumentException("Invalid destination airport: " + destination);
+            throw new IllegalArgumentException("Invalid destination airport: " + destination + ".");
         }
     }
 
@@ -71,9 +79,13 @@ public class FlightInformation {
         return availableSeats;
     }
 
+    /*
+     * 设置剩余座位数，并验证其是否为非负数。
+     * Set the remaining seats and validate whether it is non-negative.
+     */
     public void setAvailableSeats(int availableSeats) {
         if (availableSeats < 0) {
-            throw new IllegalArgumentException("可用座位数不能为负数");
+            throw new IllegalArgumentException("The initial number of seats cannot be negative.");
         }
         this.availableSeats = availableSeats;
     }
@@ -92,14 +104,14 @@ public class FlightInformation {
      */
     private static final Set<String> allowedAirports = new HashSet<>();
     private static final String[] allowedAirportsArray = {
-            "北京首都国际机场",
-            "上海浦东国际机场",
-            "广州白云国际机场",
-            "南京禄口国际机场",
-            "深圳宝安国际机场",
-            "成都天府国际机场",
-            "武汉天河国际机场",
-            "苏南硕放国际机场"
+            "Beijing Capital International Airport",
+            "Shanghai Pudong International Airport",
+            "Guangzhou Baiyun International Airport",
+            "Nanjing Lukou International Airport",
+            "Shenzhen Bao'an International Airport",
+            "Chengdu Tianfu International airport",
+            "Wuhan Tianhe International Airport",
+            "Sunan Shuofang International Airport"
     };
 
     /*
@@ -186,7 +198,7 @@ public class FlightInformation {
         if (flightTime.containsKey(departure) && flightTime.get(departure).containsKey(destination)) {
             return flightTime.get(departure).get(destination);
         } else {
-            throw new IllegalArgumentException("No flight time data available between " + departure + " and " + destination);
+            throw new IllegalArgumentException("No flight time data available between " + departure + " and " + destination + ".");
         }
     }
 
@@ -204,26 +216,26 @@ public class FlightInformation {
          * Calculate the price based on the aircraft type.
          */
         switch (aircraftType) {
-            case "波音737":
+            case "Boeing 737":
                 basePrice *= 0.7;
                 break;
-            case "波音747":
+            case "Boeing 747":
                 basePrice *= 1.3;
                 break;
-            case "波音777":
+            case "Boeing 777":
                 basePrice *= 1.1;
                 break;
-            case "波音787":
+            case "Boeing 787":
                 basePrice *= 1.2;
                 break;
-            case "空客320":
+            case "Airbus 320":
                 basePrice *= 0.8;
                 break;
-            case "空客380":
+            case "Airbus 380":
                 basePrice *= 1.4;
                 break;
             default:
-                throw new IllegalArgumentException("Invalid aircraft type: " + aircraftType);
+                throw new IllegalArgumentException("Invalid aircraft type: " + aircraftType + ".");
         }
         return basePrice;
     }
@@ -233,7 +245,7 @@ public class FlightInformation {
      * Select aircraft type.
      */
     public static String selectAircraftType(Scanner scanner) {
-        String[] validTypes = {"波音737", "波音747", "波音777", "波音787", "空客320", "空客380"};
+        String[] validTypes = {"Boeing 737", "Boeing 747", "Boeing 777", "Boeing 787", "Airbus 320", "Airbus 380"};
         for (int i = 0; i < validTypes.length; i++) {
 
             /*
@@ -242,7 +254,7 @@ public class FlightInformation {
              */
             System.out.println((i + 1) + ". " + validTypes[i]);
         }
-        System.out.print("请选择飞机型号：");
+        System.out.print("Please select the aircraft model: ");
         int choice;
         while (true) {
             try {
@@ -255,10 +267,10 @@ public class FlightInformation {
                 if (choice >= 0 && choice < validTypes.length) {
                     return validTypes[choice];
                 } else {
-                    System.out.println("选择无效，请重新输入。");
+                    System.out.println("The selection is invalid, please re-enter.");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("请输入有效的选项编号。");
+            } catch (Exception e) {
+                System.out.println("Please enter a valid option number.");
             }
         }
     }
@@ -271,7 +283,7 @@ public class FlightInformation {
         if (availableSeats > 0) {
             availableSeats--;
         } else {
-            throw new IllegalStateException("没有可用座位");
+            throw new IllegalStateException("There are no seats available.");
         }
     }
 
@@ -297,15 +309,15 @@ public class FlightInformation {
          * Calculate and output the flight information.
          */
         double flightTime = getFlightTime(departure, destination);
-        System.out.println("以下是您添加航班的具体明细：");
-        System.out.println("航班号: " + flightNumber);
-        System.out.println("出发地: " + departure);
-        System.out.println("目的地: " + destination);
-        System.out.println("出发时间: " + departureTime);
-        System.out.println("机型: " + aircraftType);
-        System.out.println("可选座位数: " + availableSeats);
-        System.out.println("飞行时间: " + flightTime + "小时");
-        System.out.println("飞行价格: " + calculatePrice(departure, destination));
+        System.out.println("The following are the specific details of the flights you added:");
+        System.out.println("Flight number: " + flightNumber);
+        System.out.println("Departure: " + departure);
+        System.out.println("Destination: " + destination);
+        System.out.println("Departure time: " + departureTime);
+        System.out.println("Aircraft type: " + aircraftType);
+        System.out.println("AvailableSeats: " + availableSeats);
+        System.out.println("Flight time: " + flightTime + "hours");
+        System.out.println("Flight price: " + calculatePrice(departure, destination));
     }
 
     /*
@@ -313,7 +325,7 @@ public class FlightInformation {
      * Get the list of allowed aircraft types.
      */
     public static String[] getAllowedAircraftTypes() {
-        return new String[]{"波音737", "波音747", "波音777", "波音787", "空客320", "空客380"};
+        return new String[]{"Boeing 737", "Boeing 747", "Boeing 777", "Boeing 787", "Airbus 320", "Airbus 380"};
     }
 
     /*
@@ -322,7 +334,7 @@ public class FlightInformation {
      */
     @Override
     public String toString() {
-        return "航班号: " + flightNumber + ", 出发地: " + departure + ", 目的地: " + destination + ", 出发时间: " + departureTime + ", 机型: " + aircraftType + ", 可用座位数: " + availableSeats;
+        return "Flight number: " + flightNumber + ", Departure: " + departure + ", Destination: " + destination + ", Departure time: " + departureTime + ", Aircraft type: " + aircraftType + ", AvailableSeats: " + availableSeats;
     }
 }
 /*

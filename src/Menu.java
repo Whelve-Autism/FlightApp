@@ -3,7 +3,6 @@ import Passenger.PassengerManager;
 import Weather.WeatherSearch;
 import Travel.Travel;
 import Mail.Mail;
-
 import java.util.Scanner;
 
 /*
@@ -39,7 +38,7 @@ public class Menu {
      * Display the main menu.
      */
     public int displayMenu() {
-        System.out.println("""
+        Display.printlnRandomColor("""
                 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
                 *                    FlightApp Menu                       *
                 * 1) Create a flight                                      *
@@ -69,6 +68,12 @@ public class Menu {
      * Jump to the corresponding method according to the input option.
      */
     public void handleUserChoice() {
+
+        /*
+         * 显示开始界面。
+         * Display the start interface.
+         */
+        Display.beginDisplay();
         int option = displayMenu();
         while (option != 0) {
 
@@ -103,29 +108,15 @@ public class Menu {
                         travel.travelAdvice();
                         break;
                     case 9:
-                        System.out.print("请稍后");
-
-                        /*
-                         * 预计等待9秒。
-                         * Estimated waiting for 9 seconds.
-                         */
-                        for (int i = 0; i < 30; i++) {
-
-                            /*
-                             * 每等待0.3秒输出一个点
-                             * Output a dot every 0.3 seconds.
-                             */
-                            Thread.sleep(300);
-                            System.out.print(".");
-                        }
+                        System.out.println("The email is being sent. Please wait for about 3 seconds.");
                         Mail.sendEmail(flightManager.getFlights(), passengerManager.getPassengers());
-                        System.out.println("\n航班和乘客信息已发送到邮箱。");
+                        System.out.println("\nFlight and passenger information have been sent to the mailbox.");
                         break;
                     default:
-                        System.out.println("请输入0-9中的数字。");
+                        System.out.println("Please enter the numbers in 0-9.");
                 }
             } catch (Exception e) {
-                System.out.println("发生错误: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
             System.out.println("\nPress enter key to continue... ");
 
@@ -141,6 +132,12 @@ public class Menu {
              */
             option = displayMenu();
         }
+
+        /* 选择选项0后，显示结束界面。
+         * Display the end interface after selecting option 0.
+         */
+        Display.endDisplay();
+        System.out.println("The program has been exited... Bye... ");
     }
 }
 /*
