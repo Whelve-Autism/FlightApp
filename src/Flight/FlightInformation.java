@@ -1,7 +1,6 @@
 package Flight;
 
 import UserInterface.Display;
-
 import java.util.*;
 
 /*
