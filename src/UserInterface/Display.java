@@ -1,3 +1,5 @@
+package UserInterface;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
@@ -22,14 +24,6 @@ public class Display {
             "\u001B[96m", // 青色 (Bright Cyan)
             "\u001B[97m"  // 白色 (Bright White)
     };
-
-    /*
-     * 打印红色颜色的文本。
-     * Print red text.
-     */
-    public static void printRed(String redWord) {
-        System.out.println("\u001B[91m" + redWord + "\u001B[0m");
-    }
 
     /*
      * 初始化随机数，用于随机选择颜色。
@@ -101,7 +95,7 @@ public class Display {
 
     /*
      * 显示开始界面。
-     * Display the start interface.
+     * UserInterface.Display the start interface.
      */
     public static void beginDisplay() {
         middleSlash();
@@ -145,7 +139,7 @@ public class Display {
 
     /*
      * 显示结束界面。
-     * Display the end interface.
+     * UserInterface.Display the end interface.
      */
     public static void endDisplay() {
         shortSlash();
@@ -156,6 +150,6 @@ public class Display {
     }
 }
 /*
- * End of Display Class.
+ * End of UserInterface.Display Class.
  * Written and checked by Fan Xinkang.
  */

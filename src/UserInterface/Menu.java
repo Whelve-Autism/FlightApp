@@ -1,3 +1,5 @@
+package UserInterface;
+
 import Flight.FlightManager;
 import Passenger.PassengerManager;
 import Weather.WeatherSearch;
@@ -35,7 +37,7 @@ public class Menu {
 
     /*
      * 显示主菜单。
-     * Display the main menu.
+     * UserInterface.Display the main menu.
      */
     public int displayMenu() {
         Display.printlnRandomColor("""
@@ -71,7 +73,7 @@ public class Menu {
 
         /*
          * 显示开始界面。
-         * Display the start interface.
+         * UserInterface.Display the start interface.
          */
         Display.beginDisplay();
         int option = displayMenu();
@@ -108,17 +110,17 @@ public class Menu {
                         travel.travelAdvice();
                         break;
                     case 9:
-                        System.out.println("The email is being sent. Please wait for about 3 seconds.");
+                        Display.printlnRandomColor("The email is being sent. Please wait for about 3 seconds.");
                         Mail.sendEmail(flightManager.getFlights(), passengerManager.getPassengers());
-                        System.out.println("\nFlight and passenger information have been sent to the mailbox.");
+                        Display.printlnRandomColor("\nFlight and passenger information have been sent to the mailbox.");
                         break;
                     default:
-                        System.out.println("Please enter the numbers in 0-9.");
+                        Display.printlnRandomColor("Please enter the numbers in 0-9.");
                 }
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                Display.printlnRandomColor("Error: " + e.getMessage());
             }
-            System.out.println("\nPress enter key to continue... ");
+            Display.printlnRandomColor("\nPress enter key to continue... ");
 
             /*
              * 虚拟读取，以清除扫描仪类中的缓冲区-错误。
@@ -134,13 +136,13 @@ public class Menu {
         }
 
         /* 选择选项0后，显示结束界面。
-         * Display the end interface after selecting option 0.
+         * UserInterface.Display the end interface after selecting option 0.
          */
         Display.endDisplay();
-        System.out.println("The program has been exited... Bye... ");
+        Display.printlnRandomColor("The program has been exited... Bye... ");
     }
 }
 /*
- * End of Menu Class.
+ * End of UserInterface.Menu Class.
  * Checked by Fan Xinkang.
  */

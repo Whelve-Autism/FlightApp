@@ -1,5 +1,7 @@
 package Travel;
 
+import UserInterface.Display;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -32,24 +34,24 @@ public class Travel {
       Show city list.
      */
     public void displayCities() {
-        System.out.println("Please select a city: ");
+        Display.printlnRandomColor("Please select a city: ");
         int index = 1;
         for (String city : scenicSpots.keySet()) {
-            System.out.println(index + ". " + city);
+            Display.printlnRandomColor(index + ". " + city);
             index++;
         }
     }
 
     /*
       显示指定城市的推荐景点。
-      Display recommended scenic spots for a specified city.
+      UserInterface.Display recommended scenic spots for a specified city.
      */
     public void displayScenicSpots(String city) {
         String scenicSpots = this.scenicSpots.get(city);
         if (scenicSpots != null) {
-            System.out.println(city + "'s recommended scenic spots: " + scenicSpots);
+            Display.printlnRandomColor(city + "'s recommended scenic spots: " + scenicSpots);
         } else {
-            System.out.println("No recommended scenic spot information of the city was found.");
+            Display.printlnRandomColor("No recommended scenic spot information of the city was found.");
         }
     }
 
@@ -60,7 +62,7 @@ public class Travel {
     public void travelAdvice() {
         Scanner scanner = new Scanner(System.in);
         displayCities();
-        System.out.print("Enter the city serial number: ");
+        Display.printRandomColor("Enter the city serial number: ");
         int selectedIndex = scanner.nextInt();
 
         /*
@@ -77,11 +79,11 @@ public class Travel {
             String selectedCity = (String) scenicSpots.keySet().toArray()[selectedIndex - 1];
             displayScenicSpots(selectedCity);
         } else {
-            System.out.println("Invalid serial number. Please enter a valid city serial number.");
+            Display.printlnRandomColor("Invalid serial number. Please enter a valid city serial number.");
         }
     }
 }
 /*
-  End of Menu Class.
+  End of UserInterface.Menu Class.
   Checked by Fan Xinkang.
  */

@@ -1,5 +1,6 @@
 package Weather;
 
+import UserInterface.Display;
 import com.alibaba.fastjson.JSON;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -77,14 +78,14 @@ public class WeatherSearch {
      */
     public void fetchWeatherForCities() {
         List<String> cities = Arrays.asList("Beijing", "Shanghai", "Guangzhou", "Nanjing", "Shenzhen", "Chengdu", "Wuhan", "Wuxi");
-        System.out.println("Please select a city to check the weather information: ");
+        Display.printlnRandomColor("Please select a city to check the weather information: ");
         for (int i = 0; i < cities.size(); i++) {
 
             /*
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". " + cities.get(i));
+            Display.printlnRandomColor((i + 1) + ". " + cities.get(i));
         }
         int choice = scanner.nextInt();
 
@@ -127,24 +128,24 @@ public class WeatherSearch {
                      */
                     System.out.println("City: " + location.getName());
                     for (WeatherDaily daily : dailyList) {
-                        System.out.println("Date: " + daily.getDate());
-                        System.out.println("Daytime weather: " + daily.getTextDay());
-                        System.out.println("Night weather: " + daily.getTextNight());
-                        System.out.println("The highest temperature: " + daily.getHigh() + "°C");
-                        System.out.println("The lowest temperature: " + daily.getLow() + "°C");
-                        System.out.println("Wind direction: " + daily.getWindDirection());
-                        System.out.println("Wind speed: " + daily.getWindSpeed() + " km/h");
-                        System.out.println("Moisture content: " + daily.getHumidity() + "%");
+                        Display.printlnRandomColor("Date: " + daily.getDate());
+                        Display.printlnRandomColor("Daytime weather: " + daily.getTextDay());
+                        Display.printlnRandomColor("Night weather: " + daily.getTextNight());
+                        Display.printlnRandomColor("The highest temperature: " + daily.getHigh() + "°C");
+                        Display.printlnRandomColor("The lowest temperature: " + daily.getLow() + "°C");
+                        Display.printlnRandomColor("Wind direction: " + daily.getWindDirection());
+                        Display.printlnRandomColor("Wind speed: " + daily.getWindSpeed() + " km/h");
+                        Display.printlnRandomColor("Moisture content: " + daily.getHumidity() + "%");
                         System.out.println();
                     }
                 } else {
-                    System.out.println("No weather information for " + city + " was found.");
+                    Display.printlnRandomColor("No weather information for " + city + " was found.");
                 }
             } else {
-                System.out.println("Unable to get the weather information of Nanjing " + city + ".");
+                Display.printlnRandomColor("Unable to get the weather information of Nanjing " + city + ".");
             }
         } else {
-            System.out.println("Invalid selection. Please select again: ");
+            Display.printlnRandomColor("Invalid selection. Please select again: ");
         }
     }
 }

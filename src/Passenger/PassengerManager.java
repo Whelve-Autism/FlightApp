@@ -2,6 +2,7 @@ package Passenger;
 
 import Flight.FlightManager;
 import Flight.FlightInformation;
+import UserInterface.Display;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -45,12 +46,12 @@ public class PassengerManager {
      */
     private String getValidGender(Scanner scanner) {
         while (true) {
-            System.out.println("Please enter the passenger's gender (Male / Female): ");
+            Display.printlnRandomColor("Please enter the passenger's gender (Male / Female): ");
             String gender = scanner.nextLine();
             if (gender.equals("Male") || gender.equals("Female")) {
                 return gender;
             } else {
-                System.out.println("The gender format is incorrect, please re-enter: ");
+                Display.printlnRandomColor("The gender format is incorrect, please re-enter: ");
             }
         }
     }
@@ -62,7 +63,7 @@ public class PassengerManager {
     private int getValidWeight(Scanner scanner) {
         while (true) {
             try {
-                System.out.println("Please enter the passenger's baggage weight (kg): ");
+                Display.printlnRandomColor("Please enter the passenger's baggage weight (kg): ");
                 int weightOfLuggage = scanner.nextInt();
 
                 /*
@@ -73,10 +74,10 @@ public class PassengerManager {
                 if (weightOfLuggage >= 0 && weightOfLuggage <= 100) {
                     return weightOfLuggage;
                 } else {
-                    System.out.println("The weight of the luggage is out of range, please re-enter: ");
+                    Display.printlnRandomColor("The weight of the luggage is out of range, please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("The input is invalid. Please enter a valid number: ");
+                Display.printlnRandomColor("The input is invalid. Please enter a valid number: ");
 
                 /*
                  * 虚拟读取，以清除扫描仪类中的缓冲区-错误。
@@ -93,12 +94,12 @@ public class PassengerManager {
      */
     private String getValidPhoneNumber(Scanner scanner) {
         while (true) {
-            System.out.println("Please enter the passenger's contact information (11-digit phone number): ");
+            Display.printlnRandomColor("Please enter the passenger's contact information (11-digit phone number): ");
             String telephoneNumber = scanner.nextLine();
             if (telephoneNumber.matches("\\d{11}")) {
                 return telephoneNumber;
             } else {
-                System.out.println("The format of the mobile phone number is incorrect. Please re-enter: ");
+                Display.printlnRandomColor("The format of the mobile phone number is incorrect. Please re-enter: ");
             }
         }
     }
@@ -108,7 +109,7 @@ public class PassengerManager {
      * Add passenger and select flight.
      */
     public void addPassengerAndSelectFlight() {
-        System.out.println("Note: Once there are passengers on the flight, the flight cannot be modified.");
+        Display.printlnRandomColor("Note: Once there are passengers on the flight, the flight cannot be modified.");
 
         /*
          * 选择出发地和目的地。
@@ -122,7 +123,7 @@ public class PassengerManager {
          * Ensure that the departure and destination are not the same.
          */
         while (departure.equals(destination)) {
-            System.out.println("The place of departure and destination cannot be the same. Please select again: ");
+            Display.printlnRandomColor("The place of departure and destination cannot be the same. Please select again: ");
             departure = selectOption(FlightInformation.getAllowedAirports(), "Please select the departure: ");
             destination = selectOption(FlightInformation.getAllowedAirports(), "Please select the destination: ");
         }
@@ -139,15 +140,15 @@ public class PassengerManager {
          * If there are no matching flights, prompt and end the program.
          */
         if (matchingFlights.isEmpty()) {
-            System.out.println("No eligible flights have been found. See you next time. ");
+            Display.printlnRandomColor("No eligible flights have been found. See you next time. ");
         } else {
             FlightInformation selectedFlight = flightManager.selectFlight(matchingFlights);
             if (selectedFlight != null) {
-                System.out.println("You have chosen the flight: " + selectedFlight.getFlightNumber());
+                Display.printlnRandomColor("You have chosen the flight: " + selectedFlight.getFlightNumber());
                 if (selectedFlight.getAvailableSeats() == 0) {
-                    System.out.println("There are no seats available for this flight, so tickets cannot be purchased.");
+                    Display.printlnRandomColor("There are no seats available for this flight, so tickets cannot be purchased.");
                 } else {
-                    System.out.print("Do you want to buy a ticket for this flight? (Yes / No): ");
+                    Display.printlnRandomColor("Do you want to buy a ticket for this flight? (Yes / No): ");
                     String choice = scanner.nextLine();
                     if (choice.equalsIgnoreCase("Yes")) {
 
@@ -189,7 +190,7 @@ public class PassengerManager {
                         int luggageWeight = passenger.getWeightOfLuggage();
                         double additionalLuggageFee = 0.0;
                         if (luggageWeight > 20) {
-                            System.out.println("If your luggage exceeds 20kg, you need to check in your luggage. The charge is 100 yuan, and 15 yuan will be added for each excess of 1kg.");
+                            Display.printlnRandomColor("If your luggage exceeds 20kg, you need to check in your luggage. The charge is 100 yuan, and 15 yuan will be added for each excess of 1kg.");
                             additionalLuggageFee = 100.0 + (luggageWeight - 20) * 15.0;
                         }
                         double totalCost = basePrice + additionalLuggageFee;
@@ -198,24 +199,24 @@ public class PassengerManager {
                          * 输出购票成功的消息，并显示乘客的信息和航班号。
                          * Output booking success message and show passenger information and flight number.
                          */
-                        System.out.println("You have purchased the flight.：" + selectedFlight.getFlightNumber());
-                        System.out.println("The passenger information is as follows: ");
-                        System.out.println("Name: " + passenger.getName());
-                        System.out.println("Gender: " + passenger.getGender());
-                        System.out.println("Weight of luggage: " + luggageWeight + "kg");
-                        System.out.println("Telephone number: " + passenger.getTelephoneNumber());
-                        System.out.println("Flight number: " + passenger.getFlightNumber());
-                        System.out.println("Flight price: " + basePrice + "yuan");
+                        Display.printlnRandomColor("You have purchased the flight.：" + selectedFlight.getFlightNumber());
+                        Display.printlnRandomColor("The passenger information is as follows: ");
+                        Display.printlnRandomColor("Name: " + passenger.getName());
+                        Display.printlnRandomColor("Gender: " + passenger.getGender());
+                        Display.printlnRandomColor("Weight of luggage: " + luggageWeight + "kg");
+                        Display.printlnRandomColor("Telephone number: " + passenger.getTelephoneNumber());
+                        Display.printlnRandomColor("Flight number: " + passenger.getFlightNumber());
+                        Display.printlnRandomColor("Flight price: " + basePrice + "yuan");
                         if (additionalLuggageFee > 0) {
-                            System.out.println("Extra baggage charges: " + additionalLuggageFee + "yuan");
+                            Display.printlnRandomColor("Extra baggage charges: " + additionalLuggageFee + "yuan");
                         }
-                        System.out.println("Total cost: " + totalCost + "yuan");
+                        Display.printlnRandomColor("Total cost: " + totalCost + "yuan");
                     } else {
-                        System.out.println("The ticket purchase has been canceled.");
+                        Display.printlnRandomColor("The ticket purchase has been canceled.");
                     }
                 }
             } else {
-                System.out.println("No flight was selected.");
+                Display.printlnRandomColor("No flight was selected.");
             }
         }
     }
@@ -231,9 +232,9 @@ public class PassengerManager {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". " + options[i]);
+            Display.printlnRandomColor((i + 1) + ". " + options[i]);
         }
-        System.out.print(prompt);
+        Display.printlnRandomColor(prompt);
         int choice;
 
         /*
@@ -251,10 +252,10 @@ public class PassengerManager {
                 if (choice >= 0 && choice < options.length) {
                     return options[choice];
                 } else {
-                    System.out.println("The selection is invalid. Please re-enter: ");
+                    Display.printlnRandomColor("The selection is invalid. Please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("Please enter a valid option number: ");
+                Display.printlnRandomColor("Please enter a valid option number: ");
             }
         }
     }
@@ -274,11 +275,11 @@ public class PassengerManager {
     public void printPassengers() {
         for (int i = 0; i < passengers.size(); i++) {
             PassengerInformation passenger = passengers.get(i);
-            System.out.println((i + 1) + ". Passengers: " + passenger.getName());
-            System.out.println("   Gender: " + passenger.getGender());
-            System.out.println("   Weight of luggage: " + passenger.getWeightOfLuggage() + "kg");
-            System.out.println("   Telephone number: " + passenger.getTelephoneNumber());
-            System.out.println("   Flight number: " + passenger.getFlightNumber());
+            Display.printlnRandomColor((i + 1) + ". Passengers: " + passenger.getName());
+            Display.printlnRandomColor("   Gender: " + passenger.getGender());
+            Display.printlnRandomColor("   Weight of luggage: " + passenger.getWeightOfLuggage() + "kg");
+            Display.printlnRandomColor("   Telephone number: " + passenger.getTelephoneNumber());
+            Display.printlnRandomColor("   Flight number: " + passenger.getFlightNumber());
             System.out.println();
         }
     }
@@ -289,7 +290,7 @@ public class PassengerManager {
      */
     public void rebookPassenger() {
         if (passengers.isEmpty()) {
-            System.out.println("There is no passenger information, so the visa cannot be changed.");
+            Display.printlnRandomColor("There is no passenger information, so the visa cannot be changed.");
             return;
         }
 
@@ -303,10 +304,10 @@ public class PassengerManager {
          * 选择要改签的乘客。
          * Select passenger to rebook.
          */
-        System.out.print("Please enter the passenger number to be changed (enter numbers) or press Enter to skip: ");
+        Display.printlnRandomColor("Please enter the passenger number to be changed (enter numbers) or press Enter to skip: ");
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("Passengers have not been selected, and the visa change operation has been canceled.");
+            Display.printlnRandomColor("Passengers have not been selected, and the visa change operation has been canceled.");
             return;
         }
 
@@ -318,11 +319,11 @@ public class PassengerManager {
         try {
             passengerIndex = Integer.parseInt(input) - 1;
             if (passengerIndex < 0 || passengerIndex >= passengers.size()) {
-                System.out.println("The selection is invalid. Please re-enter: ");
+                Display.printlnRandomColor("The selection is invalid. Please re-enter: ");
                 return;
             }
         } catch (Exception e) {
-            System.out.println("The input is invalid. Please enter a valid option number: ");
+            Display.printlnRandomColor("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -331,7 +332,7 @@ public class PassengerManager {
          * Get the selected passenger.
          */
         PassengerInformation passenger = passengers.get(passengerIndex);
-        System.out.println("You have chosen the passenger: " + passenger.getName() + ".");
+        Display.printlnRandomColor("You have chosen the passenger: " + passenger.getName() + ".");
 
         /*
          * 获取当前航班。
@@ -339,7 +340,7 @@ public class PassengerManager {
          */
         FlightInformation currentFlight = flightManager.findFlightByNumber(passenger.getFlightNumber());
         if (currentFlight == null) {
-            System.out.println("The current flight information does not exist, and the visa change operation has been canceled.");
+            Display.printlnRandomColor("The current flight information does not exist, and the visa change operation has been canceled.");
             return;
         }
 
@@ -354,10 +355,10 @@ public class PassengerManager {
          * 选择新的航班。
          * Select new flight.
          */
-        System.out.print("Please enter the new flight number (enter numbers) or press Enter to skip: ");
+        Display.printRandomColor("Please enter the new flight number (enter numbers) or press Enter to skip: ");
         input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("No new flight was selected, and the visa change operation has been canceled.");
+            Display.printlnRandomColor("No new flight was selected, and the visa change operation has been canceled.");
             return;
         }
 
@@ -369,11 +370,11 @@ public class PassengerManager {
         try {
             flightIndex = Integer.parseInt(input) - 1;
             if (flightIndex < 0 || flightIndex >= allFlights.size()) {
-                System.out.println("The selection is invalid. Please re-enter: ");
+                Display.printlnRandomColor("The selection is invalid. Please re-enter: ");
                 return;
             }
         } catch (Exception e) {
-            System.out.println("The input is invalid. Please enter a valid option number: ");
+            Display.printlnRandomColor("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -388,11 +389,11 @@ public class PassengerManager {
          * Check if the new flight is the same as the current flight.
          */
         if (newFlight.getFlightNumber().equals(currentFlight.getFlightNumber())) {
-            System.out.println("The new flight is the same as the current flight, and the visa change operation has been canceled.");
+            Display.printlnRandomColor("The new flight is the same as the current flight, and the visa change operation has been canceled.");
             return;
         }
         if (newFlight.getAvailableSeats() == 0) {
-            System.out.println("There are no seats available for this flight and cannot be changed.");
+            Display.printlnRandomColor("There are no seats available for this flight and cannot be changed.");
             return;
         }
 
@@ -427,7 +428,7 @@ public class PassengerManager {
          * Update the flight number of the passenger.
          */
         passenger.setFlightNumber(newFlight.getFlightNumber());
-        System.out.println("The visa change is successful, and the new flight number is: " + newFlight.getFlightNumber() + ".");
+        Display.printlnRandomColor("The visa change is successful, and the new flight number is: " + newFlight.getFlightNumber() + ".");
     }
 
     /*
@@ -436,7 +437,7 @@ public class PassengerManager {
      */
     public void deletePassenger() {
         if (passengers.isEmpty()) {
-            System.out.println("There is no passenger information and cannot be deleted.");
+            Display.printlnRandomColor("There is no passenger information and cannot be deleted.");
             return;
         }
 
@@ -450,10 +451,10 @@ public class PassengerManager {
          * 选择要删除的乘客。
          * Select passenger to delete.
          */
-        System.out.print("Please enter the passenger number you want to delete (enter the number) or press Enter to skip: ");
+        Display.printRandomColor("Please enter the passenger number you want to delete (enter the number) or press Enter to skip: ");
         String input = scanner.nextLine().trim();
         if (input.isEmpty()) {
-            System.out.println("Passengers were not selected, and the deletion operation was canceled.");
+            Display.printlnRandomColor("Passengers were not selected, and the deletion operation was canceled.");
             return;
         }
 
@@ -465,11 +466,11 @@ public class PassengerManager {
         try {
             passengerIndex = Integer.parseInt(input) - 1;
             if (passengerIndex < 0 || passengerIndex >= passengers.size()) {
-                System.out.println("The selection is invalid. Please re-enter: ");
+                Display.printlnRandomColor("The selection is invalid. Please re-enter: ");
                 return;
             }
         } catch (Exception e) {
-            System.out.println("The input is invalid. Please enter a valid option number: ");
+            Display.printlnRandomColor("The input is invalid. Please enter a valid option number: ");
             return;
         }
 
@@ -478,7 +479,7 @@ public class PassengerManager {
          * Get the selected passenger.
          */
         PassengerInformation passenger = passengers.get(passengerIndex);
-        System.out.println("You have chosen the passenger: " + passenger.getName() + ".");
+        Display.printlnRandomColor("You have chosen the passenger: " + passenger.getName() + ".");
 
         /*
          * 获取当前航班。
@@ -486,7 +487,7 @@ public class PassengerManager {
          */
         FlightInformation currentFlight = flightManager.findFlightByNumber(passenger.getFlightNumber());
         if (currentFlight == null) {
-            System.out.println("The current flight information does not exist, and the deletion operation has been canceled.");
+            Display.printlnRandomColor("The current flight information does not exist, and the deletion operation has been canceled.");
             return;
         }
 
@@ -494,7 +495,7 @@ public class PassengerManager {
          * 确认删除。
          * Confirm deletion.
          */
-        System.out.print("Do you want to confirm the deletion of passenger " + passenger.getName() + "? (Yes / No): ");
+        Display.printRandomColor("Do you want to confirm the deletion of passenger " + passenger.getName() + "? (Yes / No): ");
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("Yes")) {
             passengers.remove(passenger);
@@ -512,9 +513,9 @@ public class PassengerManager {
                  */
                 flightManager.setFlightHasPassenger(currentFlight.getFlightNumber(), false);
             }
-            System.out.println("Passenger " + passenger.getName() + "'s ticket purchase information has been deleted.");
+            Display.printlnRandomColor("Passenger " + passenger.getName() + "'s ticket purchase information has been deleted.");
         } else {
-            System.out.println("The deletion operation has been canceled.");
+            Display.printlnRandomColor("The deletion operation has been canceled.");
         }
     }
 }

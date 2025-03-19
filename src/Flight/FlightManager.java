@@ -1,5 +1,7 @@
 package Flight;
 
+import UserInterface.Display;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +24,7 @@ public class FlightManager {
      * Input flight information.
      */
     public FlightInformation inputFlightInfo() {
-        System.out.println("Please enter the flight number (6 digits): ");
+        Display.printlnRandomColor("Please enter the flight number (6 digits): ");
         String flightNumber;
 
         /*
@@ -32,9 +34,9 @@ public class FlightManager {
         do {
             flightNumber = scanner.nextLine();
             if (!flightNumber.matches("\\d{6}")) {
-                System.out.println("The flight number must be 6 digits. Please re-enter: ");
+                Display.printlnRandomColor("The flight number must be 6 digits. Please re-enter: ");
             } else if (isFlightNumberExists(flightNumber)) {
-                System.out.println("Flight number " + flightNumber + " already exists. Please re-enter: ");
+                Display.printlnRandomColor("Flight number " + flightNumber + " already exists. Please re-enter: ");
             }
         } while (!flightNumber.matches("\\d{6}") || isFlightNumberExists(flightNumber));
 
@@ -57,7 +59,7 @@ public class FlightManager {
         do {
             destination = selectOption(FlightInformation.getAllowedAirports(), "Please select the place of destination: ");
             if (departure.equals(destination)) {
-                System.out.println("The place of departure and destination cannot be the same. Please select again: ");
+                Display.printlnRandomColor("The place of departure and destination cannot be the same. Please select again: ");
             }
         } while (departure.equals(destination));
 
@@ -73,12 +75,12 @@ public class FlightManager {
          */
         while (true) {
             try {
-                System.out.println("Please enter the take-off time (yyyy-MM-dd HH:mm):");
+                Display.printlnRandomColor("Please enter the take-off time (yyyy-MM-dd HH:mm):");
                 departureTime = scanner.nextLine();
                 validateDateTimeInput(departureTime);
                 break;
             } catch (Exception e) {
-                System.out.println("The time format is incorrect. Please re-enter: ");
+                Display.printlnRandomColor("The time format is incorrect. Please re-enter: ");
             }
         }
 
@@ -95,7 +97,7 @@ public class FlightManager {
         int availableSeats;
         while (true) {
             try {
-                System.out.println("Please enter the number of available seats: ");
+                Display.printlnRandomColor("Please enter the number of available seats: ");
                 availableSeats = Integer.parseInt(scanner.nextLine());
                 if (availableSeats <= 0) {
                     throw new IllegalArgumentException("The number of seats must be a positive integer.");
@@ -107,9 +109,9 @@ public class FlightManager {
              * Handle different input errors and throw different exceptions.
              */
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number of seats.");
+                Display.printlnRandomColor("Please enter a valid number of seats.");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + " . Please re-enter: ");
+                Display.printlnRandomColor(e.getMessage() + " . Please re-enter: ");
             }
         }
 
@@ -125,7 +127,7 @@ public class FlightManager {
          * Initialize the flight and confirm that the flight has no passengers booked.
          */
         flightHasPassenger.put(flightNumber, false);
-        System.out.println("Flight addition is successful.");
+        Display.printlnRandomColor("Flight addition is successful.");
         return flight;
     }
 
@@ -157,9 +159,9 @@ public class FlightManager {
      */
     public void printFlights(List<FlightInformation> flights) {
         if (flights.isEmpty()) {
-            System.out.println("No eligible flights were found.");
+            Display.printlnRandomColor("No eligible flights were found.");
         } else {
-            System.out.println("Find the following eligible flights: ");
+            Display.printlnRandomColor("Find the following eligible flights: ");
             for (int i = 0; i < flights.size(); i++) {
                 FlightInformation flight = flights.get(i);
 
@@ -167,14 +169,14 @@ public class FlightManager {
                  * 数组下标从0开始，所以需要加1。
                  * The array index starts from 0, so we need to add 1.
                  */
-                System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
-                System.out.println("   Departure: " + flight.getDeparture());
-                System.out.println("   Destination: " + flight.getDestination());
-                System.out.println("   Departure time: " + flight.getDepartureTime());
-                System.out.println("   Aircraft type: " + flight.getAircraftType());
-                System.out.println("   Available seats: " + flight.getAvailableSeats());
-                System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
-                System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+                Display.printlnRandomColor((i + 1) + ". Flight number: " + flight.getFlightNumber());
+                Display.printlnRandomColor("   Departure: " + flight.getDeparture());
+                Display.printlnRandomColor("   Destination: " + flight.getDestination());
+                Display.printlnRandomColor("   Departure time: " + flight.getDepartureTime());
+                Display.printlnRandomColor("   Aircraft type: " + flight.getAircraftType());
+                Display.printlnRandomColor("   Available seats: " + flight.getAvailableSeats());
+                Display.printlnRandomColor("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+                Display.printlnRandomColor("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
                 System.out.println();
             }
         }
@@ -190,15 +192,15 @@ public class FlightManager {
         }
         while (true) {
             try {
-                System.out.print("Please select the flight number (enter the number): ");
+                Display.printlnRandomColor("Please select the flight number (enter the number): ");
                 int choice = Integer.parseInt(scanner.nextLine()) - 1;
                 if (choice >= 0 && choice < flights.size()) {
                     return flights.get(choice);
                 } else {
-                    System.out.println("The selection is invalid, please re-enter: ");
+                    Display.printlnRandomColor("The selection is invalid, please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("Please enter a valid option number: ");
+                Display.printlnRandomColor("Please enter a valid option number: ");
             }
         }
     }
@@ -227,7 +229,7 @@ public class FlightManager {
      */
     public void updateFlightInfo() {
         if (flights.isEmpty()) {
-            System.out.println("There is no flight record to modify.");
+            Display.printlnRandomColor("There is no flight record to modify.");
             return;
         }
 
@@ -242,7 +244,7 @@ public class FlightManager {
             }
         }
         if (modifiableFlights.isEmpty()) {
-            System.out.println("The number of available seats on all flights has been changed and cannot be modified.");
+            Display.printlnRandomColor("The number of available seats on all flights has been changed and cannot be modified.");
             return;
         }
 
@@ -250,7 +252,7 @@ public class FlightManager {
          * 打印所有可修改的航班供选择。
          * Print all modifiable flights for selection.
          */
-        System.out.println("Find the following flights that can be modified: ");
+        Display.printlnRandomColor("Find the following flights that can be modified: ");
         for (int i = 0; i < modifiableFlights.size(); i++) {
             FlightInformation flight = modifiableFlights.get(i);
 
@@ -258,14 +260,14 @@ public class FlightManager {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
-            System.out.println("   Departure: " + flight.getDeparture());
-            System.out.println("   Destination: " + flight.getDestination());
-            System.out.println("   Departure time: " + flight.getDepartureTime());
-            System.out.println("   Aircraft type: " + flight.getAircraftType());
-            System.out.println("   Available seats: " + flight.getAvailableSeats());
-            System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
-            System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+            Display.printlnRandomColor((i + 1) + ". Flight number: " + flight.getFlightNumber());
+            Display.printlnRandomColor("   Departure: " + flight.getDeparture());
+            Display.printlnRandomColor("   Destination: " + flight.getDestination());
+            Display.printlnRandomColor("   Departure time: " + flight.getDepartureTime());
+            Display.printlnRandomColor("   Aircraft type: " + flight.getAircraftType());
+            Display.printlnRandomColor("   Available seats: " + flight.getAvailableSeats());
+            Display.printlnRandomColor("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+            Display.printlnRandomColor("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
             System.out.println();
         }
 
@@ -275,7 +277,7 @@ public class FlightManager {
          */
         FlightInformation flightToUpdate = selectFlight(modifiableFlights);
         if (flightToUpdate == null) {
-            System.out.println("The selection is invalid, and the flight cannot be modified.");
+            Display.printlnRandomColor("The selection is invalid, and the flight cannot be modified.");
             return;
         }
 
@@ -283,26 +285,26 @@ public class FlightManager {
          * 打印当前航班信息。
          * Print current flight information.
          */
-        System.out.println("The current flight information is as follows: ");
-        System.out.println("Flight number: " + flightToUpdate.getFlightNumber());
-        System.out.println("Departure: " + flightToUpdate.getDeparture());
-        System.out.println("Destination: " + flightToUpdate.getDestination());
-        System.out.println("Departure time: " + flightToUpdate.getDepartureTime());
-        System.out.println("Aircraft type: " + flightToUpdate.getAircraftType());
-        System.out.println("Available seats: " + flightToUpdate.getAvailableSeats());
+        Display.printlnRandomColor("The current flight information is as follows: ");
+        Display.printlnRandomColor("Flight number: " + flightToUpdate.getFlightNumber());
+        Display.printlnRandomColor("Departure: " + flightToUpdate.getDeparture());
+        Display.printlnRandomColor("Destination: " + flightToUpdate.getDestination());
+        Display.printlnRandomColor("Departure time: " + flightToUpdate.getDepartureTime());
+        Display.printlnRandomColor("Aircraft type: " + flightToUpdate.getAircraftType());
+        Display.printlnRandomColor("Available seats: " + flightToUpdate.getAvailableSeats());
 
         /*
          * 录入新的航班信息。
          * Enter new flight information.
          */
-        System.out.println("Please enter the new flight information (if you don't want to modify a certain item, please press the Enter key directly to keep the original information): ");
+        Display.printlnRandomColor("Please enter the new flight information (if you don't want to modify a certain item, please press the Enter key directly to keep the original information): ");
 
         /*
          * 修改航班号。
          * Modify flight number.
          */
         String newFlightNumber = flightToUpdate.getFlightNumber();
-        System.out.println("Please enter the new flight number (6 digits). The current flight number is " + newFlightNumber + ": ");
+        Display.printlnRandomColor("Please enter the new flight number (6 digits). The current flight number is " + newFlightNumber + ": ");
 
         /*
          * 如果输入了航班号，则检查是否为6位数字，并且判断是否已经存在。
@@ -317,12 +319,12 @@ public class FlightManager {
              */
             if (inputFlightNumber.matches("\\d{6}")) {
                 if (isFlightNumberExists(inputFlightNumber) && !inputFlightNumber.equals(flightToUpdate.getFlightNumber())) {
-                    System.out.println("The flight number " + inputFlightNumber + " already exists. Please re-input: ");
+                    Display.printlnRandomColor("The flight number " + inputFlightNumber + " already exists. Please re-input: ");
                     return;
                 }
                 newFlightNumber = inputFlightNumber;
             } else {
-                System.out.println("The flight number must be 6 digits, and the modification has not taken effect.");
+                Display.printlnRandomColor("The flight number must be 6 digits, and the modification has not taken effect.");
                 return;
             }
         }
@@ -341,7 +343,7 @@ public class FlightManager {
         do {
             newDestination = selectOptionWithDefault(FlightInformation.getAllowedAirports(), "Please select a new destination. The current destination is " + flightToUpdate.getDestination() + ": ", flightToUpdate.getDestination());
             if (newDeparture.equals(newDestination)) {
-                System.out.println("The place of departure and destination cannot be the same. Please select again: ");
+                Display.printlnRandomColor("The place of departure and destination cannot be the same. Please select again: ");
             }
         } while (newDeparture.equals(newDestination));
 
@@ -359,10 +361,10 @@ public class FlightManager {
          * Modify aircraft type.
          */
         String newAircraftType = flightToUpdate.getAircraftType();
-        System.out.println("Please select a new aircraft model. The current model is " + newAircraftType + ": ");
+        Display.printlnRandomColor("Please select a new aircraft model. The current model is " + newAircraftType + ": ");
         String inputAircraftType = selectOptionWithDefault(FlightInformation.getAllowedAircraftTypes(), "Please select a new aircraft model. The current model is " + newAircraftType + ": ", newAircraftType);
         if (inputAircraftType.equals(newAircraftType)) {
-            System.out.println("The aircraft model has not been modified. ");
+            Display.printlnRandomColor("The aircraft model has not been modified. ");
         } else {
             newAircraftType = inputAircraftType;
         }
@@ -386,7 +388,7 @@ public class FlightManager {
                 newDepartureTime.equals(flightToUpdate.getDepartureTime()) &&
                 newAircraftType.equals(flightToUpdate.getAircraftType()) &&
                 newAvailableSeats == flightToUpdate.getAvailableSeats()) {
-            System.out.println("No modification has been made. ");
+            Display.printlnRandomColor("No modification has been made. ");
             return;
         }
 
@@ -409,7 +411,7 @@ public class FlightManager {
             flightHasPassenger.remove(flightToUpdate.getFlightNumber());
             flightHasPassenger.put(newFlightNumber, false);
         }
-        System.out.println("The flight information has been modified successfully.");
+        Display.printlnRandomColor("The flight information has been modified successfully.");
         printFlights(List.of(flightToUpdate));
     }
 
@@ -424,9 +426,9 @@ public class FlightManager {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". " + options[i]);
+            Display.printlnRandomColor((i + 1) + ". " + options[i]);
         }
-        System.out.print(prompt);
+        Display.printRandomColor(prompt);
         int choice;
         while (true) {
             String input = scanner.nextLine().trim();
@@ -438,10 +440,10 @@ public class FlightManager {
                 if (choice >= 0 && choice < options.length) {
                     return options[choice];
                 } else {
-                    System.out.println("The selection is invalid. Please re-enter: ");
+                    Display.printlnRandomColor("The selection is invalid. Please re-enter: ");
                 }
             } catch (Exception e) {
-                System.out.println("Please enter a valid option number: ");
+                Display.printlnRandomColor("Please enter a valid option number: ");
             }
         }
     }
@@ -453,7 +455,7 @@ public class FlightManager {
     private boolean modifyDateTime(String currentDateTime) {
         while (true) {
             try {
-                System.out.println("Please enter the new take-off time (yyyy-MM-dd HH:mm), the current take-off time is " + currentDateTime + ": ");
+                Display.printlnRandomColor("Please enter the new take-off time (yyyy-MM-dd HH:mm), the current take-off time is " + currentDateTime + ": ");
                 String newDateTime = scanner.nextLine().trim();
                 if (newDateTime.isEmpty()) {
                     return true;
@@ -461,7 +463,7 @@ public class FlightManager {
                 validateDateTimeInput(newDateTime);
                 return true;
             } catch (Exception e) {
-                System.out.println("The time format is incorrect. Please re-enter: ");
+                Display.printlnRandomColor("The time format is incorrect. Please re-enter: ");
             }
         }
     }
@@ -473,7 +475,7 @@ public class FlightManager {
     private boolean modifyAvailableSeats(int currentSeats) {
         while (true) {
             try {
-                System.out.println("Please enter the new number of available seats. The current number of seats is " + currentSeats + ":");
+                Display.printlnRandomColor("Please enter the new number of available seats. The current number of seats is " + currentSeats + ":");
                 String input = scanner.nextLine().trim();
                 if (input.isEmpty()) {
                     return true;
@@ -489,9 +491,9 @@ public class FlightManager {
              * Handle different input errors and throw different exceptions.
              */
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number of seats: ");
+                Display.printlnRandomColor("Please enter a valid number of seats: ");
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage() + "Please re-enter: ");
+                Display.printlnRandomColor(e.getMessage() + "Please re-enter: ");
             }
         }
     }
@@ -510,7 +512,7 @@ public class FlightManager {
      */
     public void deleteFlight() {
         if (flights.isEmpty()) {
-            System.out.println("There is no flight record that can be deleted.");
+            Display.printlnRandomColor("There is no flight record that can be deleted.");
             return;
         }
 
@@ -525,7 +527,7 @@ public class FlightManager {
             }
         }
         if (deletableFlights.isEmpty()) {
-            System.out.println("The number of available seats on all flights has been changed and cannot be deleted.");
+            Display.printlnRandomColor("The number of available seats on all flights has been changed and cannot be deleted.");
             return;
         }
 
@@ -533,7 +535,7 @@ public class FlightManager {
          * 打印所有可删除的航班供选择。
          * Print all deletable flights for selection.
          */
-        System.out.println("Find the following flights that can be deleted: ");
+        Display.printlnRandomColor("Find the following flights that can be deleted: ");
         for (int i = 0; i < deletableFlights.size(); i++) {
             FlightInformation flight = deletableFlights.get(i);
 
@@ -541,14 +543,14 @@ public class FlightManager {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". Flight number: " + flight.getFlightNumber());
-            System.out.println("   Departure: " + flight.getDeparture());
-            System.out.println("   Destination: " + flight.getDestination());
-            System.out.println("   Departure time: " + flight.getDepartureTime());
-            System.out.println("   Aircraft type: " + flight.getAircraftType());
-            System.out.println("   Available seats: " + flight.getAvailableSeats());
-            System.out.println("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
-            System.out.println("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
+            Display.printlnRandomColor((i + 1) + ". Flight number: " + flight.getFlightNumber());
+            Display.printlnRandomColor("   Departure: " + flight.getDeparture());
+            Display.printlnRandomColor("   Destination: " + flight.getDestination());
+            Display.printlnRandomColor("   Departure time: " + flight.getDepartureTime());
+            Display.printlnRandomColor("   Aircraft type: " + flight.getAircraftType());
+            Display.printlnRandomColor("   Available seats: " + flight.getAvailableSeats());
+            Display.printlnRandomColor("   Flight time: " + flight.getFlightTime(flight.getDeparture(), flight.getDestination()) + "hours");
+            Display.printlnRandomColor("   Flight price: " + flight.calculatePrice(flight.getDeparture(), flight.getDestination()));
             System.out.println();
         }
 
@@ -558,7 +560,7 @@ public class FlightManager {
          */
         FlightInformation flightToDelete = selectFlight(deletableFlights);
         if (flightToDelete == null) {
-            System.out.println("The selection is invalid, and the flight cannot be deleted.");
+            Display.printlnRandomColor("The selection is invalid, and the flight cannot be deleted.");
             return;
         }
 
@@ -566,14 +568,14 @@ public class FlightManager {
          * 确认删除。
          * Confirm deletion.
          */
-        System.out.print("Whether to confirm the deletion of the flight " + flightToDelete.getFlightNumber() + "? (Yes / No): ");
+        Display.printlnRandomColor("Whether to confirm the deletion of the flight " + flightToDelete.getFlightNumber() + "? (Yes / No): ");
         String choice = scanner.nextLine();
         if (choice.equalsIgnoreCase("Yes")) {
             flights.remove(flightToDelete);
             flightHasPassenger.remove(flightToDelete.getFlightNumber());
-            System.out.println("Flight " + flightToDelete.getFlightNumber() + " has been deleted.");
+            Display.printlnRandomColor("Flight " + flightToDelete.getFlightNumber() + " has been deleted.");
         } else {
-            System.out.println("The deletion has been canceled.");
+            Display.printlnRandomColor("The deletion has been canceled.");
         }
     }
 

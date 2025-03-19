@@ -1,5 +1,7 @@
 package Flight;
 
+import UserInterface.Display;
+
 import java.util.*;
 
 /*
@@ -252,9 +254,9 @@ public class FlightInformation {
              * 数组下标从0开始，所以需要加1。
              * The array index starts from 0, so we need to add 1.
              */
-            System.out.println((i + 1) + ". " + validTypes[i]);
+            Display.printlnRandomColor((i + 1) + ". " + validTypes[i]);
         }
-        System.out.print("Please select the aircraft model: ");
+        Display.printlnRandomColor("Please select the aircraft model: ");
         int choice;
         while (true) {
             try {
@@ -267,10 +269,10 @@ public class FlightInformation {
                 if (choice >= 0 && choice < validTypes.length) {
                     return validTypes[choice];
                 } else {
-                    System.out.println("The selection is invalid, please re-enter.");
+                    Display.printlnRandomColor("The selection is invalid, please re-enter.");
                 }
             } catch (Exception e) {
-                System.out.println("Please enter a valid option number.");
+                Display.printlnRandomColor("Please enter a valid option number.");
             }
         }
     }
@@ -309,15 +311,15 @@ public class FlightInformation {
          * Calculate and output the flight information.
          */
         double flightTime = getFlightTime(departure, destination);
-        System.out.println("The following are the specific details of the flights you added:");
-        System.out.println("Flight number: " + flightNumber);
-        System.out.println("Departure: " + departure);
-        System.out.println("Destination: " + destination);
-        System.out.println("Departure time: " + departureTime);
-        System.out.println("Aircraft type: " + aircraftType);
-        System.out.println("AvailableSeats: " + availableSeats);
-        System.out.println("Flight time: " + flightTime + "hours");
-        System.out.println("Flight price: " + calculatePrice(departure, destination));
+        Display.printlnRandomColor("The following are the specific details of the flights you added:");
+        Display.printlnRandomColor("Flight number: " + flightNumber);
+        Display.printlnRandomColor("Departure: " + departure);
+        Display.printlnRandomColor("Destination: " + destination);
+        Display.printlnRandomColor("Departure time: " + departureTime);
+        Display.printlnRandomColor("Aircraft type: " + aircraftType);
+        Display.printlnRandomColor("AvailableSeats: " + availableSeats);
+        Display.printlnRandomColor("Flight time: " + flightTime + "hours");
+        Display.printlnRandomColor("Flight price: " + calculatePrice(departure, destination));
     }
 
     /*
