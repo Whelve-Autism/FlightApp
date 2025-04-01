@@ -128,9 +128,12 @@ public class Mail {
              * 设置邮件的收件人。
              * Set the recipient's email address.
              */
-            message.setRecipients(Message.RecipientType.TO, "2303085802@qq.com");
-            message.setRecipients(Message.RecipientType.TO, "844272977@qq.com");
-            message.setRecipients(Message.RecipientType.TO, "1524442305@qq.com");
+            String[] recipients = {"2303085802@qq.com", "844272977@qq.com", "1524442305@qq.com", "2039785247@qq.com"};
+            InternetAddress[] address = new InternetAddress[recipients.length];
+            for (int i = 0; i < recipients.length; i++) {
+                address[i] = new InternetAddress(recipients[i]);
+            }
+            message.setRecipients(Message.RecipientType.TO, address);
 
             /*
              * 设置邮件的主题。
@@ -156,6 +159,6 @@ public class Mail {
     }
 }
 /*
- * End of Mail Class.
+ * End of Mail.Mail Class.
  * Written and checked by Fan Xinkang.
  */

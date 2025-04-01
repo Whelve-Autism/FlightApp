@@ -137,6 +137,6 @@ public class WeatherDaily {
     }
 }
 /*
- * End of WeatherDaily Class.
+ * End of Weather.WeatherDaily Class.
  * Written and checked by Fan Xinkang.
  */

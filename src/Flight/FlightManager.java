@@ -621,6 +621,6 @@ public class FlightManager {
     }
 }
 /*
- * End of FlightManager Class.
+ * End of Flight.FlightManager Class.
  * Checked by Fan Xinkang.
  */

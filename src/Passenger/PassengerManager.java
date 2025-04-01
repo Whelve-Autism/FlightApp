@@ -520,6 +520,6 @@ public class PassengerManager {
     }
 }
 /*
- * End of PassengerManager Class.
+ * End of Passenger.PassengerManager Class.
  * Checked by Fan Xinkang.
  */

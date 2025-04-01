@@ -121,6 +121,6 @@ public class PassengerInformation {
     }
 }
 /*
- * End of PassengerInformation Class.
+ * End of Passenger.PassengerInformation Class.
  * Checked by Fan Xinkang.
  */

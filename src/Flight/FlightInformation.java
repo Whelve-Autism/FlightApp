@@ -339,6 +339,6 @@ public class FlightInformation {
     }
 }
 /*
- * End of FlightInformation Class.
+ * End of Flight.FlightInformation Class.
  * Checked by Fan Xinkang.
  */

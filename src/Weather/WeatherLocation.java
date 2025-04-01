@@ -65,6 +65,6 @@ public class WeatherLocation {
     }
 }
 /*
- * End of WeatherLocation Class.
+ * End of Weather.WeatherLocation Class.
  * Written and checked by Fan Xinkang.
  */

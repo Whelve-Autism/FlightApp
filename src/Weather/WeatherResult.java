@@ -40,6 +40,6 @@ public class WeatherResult {
     }
 }
 /*
- * End of WeatherResult Class.
+ * End of Weather.WeatherResult Class.
  * Written and checked by Fan Xinkang.
  */

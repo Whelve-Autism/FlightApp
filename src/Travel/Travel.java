@@ -83,6 +83,6 @@ public class Travel {
     }
 }
 /*
-  End of UserInterface.Menu Class.
+  End of Travel.Travel Class.
   Checked by Fan Xinkang.
  */

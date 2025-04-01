@@ -149,6 +149,6 @@ public class WeatherSearch {
     }
 }
 /*
- * End of WeatherSearch Class.
+ * End of Weather.WeatherSearch Class.
  * Written and checked by Fan Xinkang.
  */

@@ -27,6 +27,6 @@ public class WeatherModel {
     }
 }
 /*
- * End of WeatherModel Class.
+ * End of Weather.WeatherModel Class.
  * Written and checked by Fan Xinkang.
  */
